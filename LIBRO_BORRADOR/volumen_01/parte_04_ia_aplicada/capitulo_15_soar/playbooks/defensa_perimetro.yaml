@@ -1,0 +1,45 @@
+name: "DEFENSA_PERIMETRO_01"
+description: "Playbook para respuesta automática a escaneos de puertos"
+version: "1.0"
+trigger:
+  type: "webhook"
+  source: "Suricata"
+  event_type: "port_scan"
+
+steps:
+  - id: "enrich_ip"
+    action: "threat_intel.check_ip"
+    input: 
+      ip: "{{ event.source_ip }}"
+    next: "decision_point"
+    
+  - id: "decision_point"
+    type: "condition"
+    check:
+      - if: "result.enrich_ip.reputation == 'MALICIOUS' and result.enrich_ip.confidence > 80"
+        goto: "block_action"
+      - else:
+        goto: "log_action"
+
+  - id: "block_action"
+    action: "firewall.block_ip"
+    input:
+      ip: "{{ event.source_ip }}"
+      reason: "Bloqueo automatico SOAR: {{ result.enrich_ip.category }}"
+    next: "notify_success"
+
+  - id: "notify_success"
+    action: "notification.send"
+    input:
+      channel: "slack"
+      message: "Amenaza Bloqueada: {{ event.source_ip }} - {{ result.enrich_ip.category }}"
+    next: "end"
+
+  - id: "log_action"
+    action: "logging.write"
+    input:
+      message: "IP sospechosa detectada (No Bloqueada): {{ event.source_ip }} - Score: {{ result.enrich_ip.confidence }}"
+    next: "end"
+
+  - id: "end"
+    type: "end"

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guías de Autoprotección | CyberEcosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <nav class="navbar" aria-label="Navegación principal">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🛡️</span> CyberEcosystem
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link active">CyberEcosystem</a>
+                    <div class="dropdown-content">
+                        <a href="glosario.html">Glosario de Términos</a>
+                        <a href="guias.html">Guías de Autoprotección</a>
+                        <a href="libreria.html">Biblioteca (Libros)</a>
+                        <a href="videoteca.html">Videoteca</a>
+                        <a href="software.html">Software Recomendado</a>
+                        <a href="hardware.html">Hardware Recomendado</a>
+                    </div>
+                </div>
+                <a href="academia.html" class="nav-link btn btn-secondary">CyberSentinel Academy</a>
+            </div>
+            <div class="mobile-toggle">☰</div>
+        </div>
+    </nav>
+    <main id="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Guías de Autoprotección Digital</h1>
+                <p class="page-subtitle">Conocimiento práctico para fortalecer tus defensas en el ciberespacio.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <article class="guide-article">
+                    <h2 class="article-title">Amenaza en el Editor: Cómo Proteger tu Entorno de VSCode</h2>
+                    <p class="article-meta">Publicado: 26 de Enero, 2026 | Autor: CyberSentinel-AI</p>
+                    <img src="assets/images/vscode-security.jpg" alt="Ilustración conceptual de seguridad en el desarrollo de código" class="article-image">
+                    <div class="article-body">
+                        <h3>Introducción: El Campo de Batalla se Expande</h3>
+                        <p>Visual Studio Code (VSCode) se ha convertido en el editor de código por defecto para millones de desarrolladores en todo el mundo. Su flexibilidad, potencia y, sobre todo, su vasto ecosistema de extensiones son su mayor fortaleza. Sin embargo, como hemos analizado en nuestras sesiones de inteligencia, esta fortaleza es también su mayor vector de ataque. La cadena de suministro de software ya no se limita a las librerías de un proyecto; ahora vive dentro de nuestro editor.</p>
+
+                        <h3>El Vector de Ataque: Extensiones Maliciosas</h3>
+                        <p>Recientemente, se ha demostrado la viabilidad de publicar extensiones maliciosas en el Marketplace de VSCode. Estas extensiones, a menudo disfrazadas de temas de color populares o herramientas de productividad, pueden ejecutar código arbitrario en la máquina del desarrollador con los mismos permisos que el propio usuario. Esto les permite:</p>
+                        <ul>
+                            <li><strong>Robo de Credenciales:</strong> Acceder a archivos de configuración, variables de entorno, claves SSH y tokens de API.</li>
+                            <li><strong>Exfiltración de Código Fuente:</strong> Copiar y enviar repositorios privados a un servidor controlado por el atacante.</li>
+                            <li><strong>Ataques a la Red Interna:</strong> Utilizar la máquina del desarrollador como un punto de pivote para escanear y atacar otros sistemas dentro de la red corporativa.</li>
+                        </ul>
+                        <p>El ataque es especialmente insidioso porque explota la confianza inherente que los desarrolladores depositan en sus herramientas de trabajo. Un simple "typo" al buscar una extensión (ej. "Pretier" en lugar de "Prettier") puede comprometer todo un entorno de desarrollo.</p>
+
+                        <h3>Estrategias de Mitigación y Defensa</h3>
+                        <p>La protección contra esta amenaza requiere una mentalidad de "confianza cero" (Zero Trust) aplicada a nuestro propio entorno de desarrollo. Desde CyberSentinel Academy, recomendamos las siguientes medidas:</p>
+                        
+                        <h4>1. Auditoría Rigurosa de Extensiones</h4>
+                        <p>No instales extensiones a la ligera. Antes de instalar, verifica:</p>
+                        <ul>
+                            <li><strong>El Editor (Publisher):</strong> ¿Es el editor oficial? Microsoft publica sus propias extensiones bajo el publisher "Microsoft". Las herramientas populares suelen tener un publisher verificado. Desconfía de publishers desconocidos o con nombres genéricos.</li>
+                            <li><strong>Número de Descargas y Calificaciones:</strong> Una extensión con millones de descargas y una buena calificación es, por lo general, más fiable. Sin embargo, esto no es infalible, ya que las cuentas pueden ser secuestradas.</li>
+                            <li><strong>Repositorio de Código Fuente:</strong> ¿La extensión enlaza a un repositorio público en GitHub? Revisa el código fuente si tienes la capacidad, o al menos comprueba si el repositorio parece legítimo y tiene actividad reciente.</li>
+                        </ul>
+
+                        <h4>2. Configuración de Seguridad de VSCode</h4>
+                        <p>VSCode ha introducido el "Workspace Trust", una característica de seguridad que debes utilizar siempre. Por defecto, abre los proyectos en "modo restringido", lo que deshabilita o limita la ejecución de código por parte de las extensiones hasta que confíes explícitamente en el directorio.</p>
+
+                        <h4>3. Aislamiento del Entorno</h4>
+                        <p>Considera utilizar entornos de desarrollo virtualizados o en contenedores (como Docker con Dev Containers) para proyectos sensibles. Esto aísla el editor y sus extensiones del resto de tu sistema operativo, limitando el daño potencial de una extensión maliciosa.</p>
+
+                        <h3>Conclusión: El Desarrollador como Primera Línea de Defensa</h3>
+                        <p>La seguridad de la cadena de suministro de software comienza en el escritorio del desarrollador. Tratar las extensiones de VSCode con el mismo escepticismo que aplicamos a los archivos adjuntos de un correo electrónico es el primer paso para asegurar nuestro activo más valioso: el código. La vigilancia y las buenas prácticas son nuestras armas más efectivas.</p>
+                    </div>
+                </article>
+
+                <article class="guide-article" style="margin-top: 40px;">
+                    <h2 class="article-title">Lecciones de un Gigante Caído: El Caso de Qualys BrowserCheck</h2>
+                    <p class="article-meta">Publicado: 26 de Enero, 2026 | Autor: CyberSentinel-AI</p>
+                    <img src="assets/images/browser-check.jpg" alt="Ilustración conceptual de un análisis de seguridad en un navegador web" class="article-image">
+                    <div class="article-body">
+                        <h3>El Auge: Una Herramienta para su Tiempo</h3>
+                        <p>A principios de la década de 2010, el navegador web era un campo de batalla caótico. Las vulnerabilidades en plugins como Adobe Flash, Java y Silverlight eran la principal puerta de entrada para el malware. En este contexto, Qualys, un gigante de la ciberseguridad, lanzó <strong>BrowserCheck</strong>, una herramienta brillante y necesaria.</p>
+                        <p>Su función era simple pero poderosa: escanear el navegador y sus plugins para detectar versiones desactualizadas o vulnerables, proporcionando al usuario un informe claro y enlaces para actualizar. Fue un éxito inmediato, adoptado tanto por usuarios individuales como por corporaciones para asegurar sus endpoints.</p>
+
+                        <h3>La Caída: Muerte por Obsolescencia Tecnológica</h3>
+                        <p>Sin embargo, el mismo ecosistema que hizo a BrowserCheck indispensable fue el que lo condenó a la irrelevancia. Varios factores contribuyeron a su declive:</p>
+                        <ul>
+                            <li><strong>El Fin de los Plugins:</strong> Liderados por Apple y Google, los fabricantes de navegadores iniciaron una guerra contra los plugins, citando sus constantes fallos de seguridad y rendimiento. HTML5 se convirtió en el estándar, capaz de manejar video, animaciones y otras funciones de forma nativa.</li>
+                            <li><strong>El Navegador "Evergreen":</strong> Chrome y Firefox introdujeron ciclos de actualización automática y rápida. En lugar de grandes lanzamientos anuales, los navegadores comenzaron a actualizarse silenciosamente en segundo plano cada pocas semanas. Esto significaba que el navegador en sí mismo estaba (casi) siempre actualizado.</li>
+                            <li><strong>Sandboxing y Seguridad Integrada:</strong> Los navegadores modernos se convirtieron en auténticas fortalezas, con arquitecturas de sandboxing que aislaban los procesos y limitaban enormemente el daño que una vulnerabilidad podía causar.</li>
+                        </ul>
+                        <p>Para el año 2018, la mayoría de los plugins habían desaparecido y los navegadores se auto-gestionaban. La razón de ser de BrowserCheck se había evaporado. Qualys, reconociendo la nueva realidad, descontinuó oficialmente la herramienta.</p>
+
+                        <h3>Lecciones para el Analista de Ciberseguridad</h3>
+                        <p>La historia de Qualys BrowserCheck es una lección fundamental para cualquier profesional de la seguridad:</p>
+                        
+                        <h4>1. El Panorama de Amenazas es Dinámico</h4>
+                        <p>Las herramientas y defensas que son críticas hoy pueden ser obsoletas mañana. Un analista debe entender que la tecnología y las tácticas de los atacantes evolucionan constantemente. La complacencia es el mayor riesgo.</p>
+
+                        <h4>2. La Solución Raíz es Mejor que el Parche</h4>
+                        <p>BrowserCheck era un "parche" excelente para un problema fundamental: el software vulnerable de terceros dentro del navegador. La solución real y definitiva fue eliminar la dependencia de esos terceros (los plugins) y fortalecer el núcleo del producto (el navegador). Como defensores, siempre debemos buscar la solución raíz.</p>
+
+                        <h4>3. La Usabilidad Impulsa la Seguridad</h4>
+                        <p>Las actualizaciones automáticas y silenciosas de los navegadores modernos hicieron más por la seguridad de millones de usuarios que cualquier herramienta de escaneo que requiriera una acción manual. La mejor seguridad es aquella que es invisible y funciona por defecto.</p>
+
+                        <h3>Conclusión</h3>
+                        <p>Recordar a Qualys BrowserCheck no es criticar una herramienta fallida, sino honrar una solución exitosa que cumplió su misión hasta que el propio campo de batalla cambió. Nos enseña que en ciberseguridad, la única constante es el cambio, y nuestra capacidad de adaptación es nuestro mayor activo.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div>© 2026 CyberEcosystem. Todos los derechos reservados.</div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js?v=1.1"></script>
+</body>
+</html>

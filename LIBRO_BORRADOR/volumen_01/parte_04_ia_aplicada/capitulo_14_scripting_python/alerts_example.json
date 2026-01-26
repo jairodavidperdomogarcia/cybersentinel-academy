@@ -1,0 +1,23 @@
+[
+  {
+    "id": "alert-001",
+    "source_ip": "192.168.10.50",
+    "severity": "alta",
+    "category": "fuerza_bruta_ssh",
+    "timestamp": "2023-10-27T10:00:00Z"
+  },
+  {
+    "id": "alert-002",
+    "source_ip": "10.0.0.5",
+    "severity": "baja",
+    "category": "ping_scan",
+    "timestamp": "2023-10-27T10:05:00Z"
+  },
+  {
+    "id": "alert-003",
+    "source_ip": "45.33.22.11",
+    "severity": "alta",
+    "category": "sql_injection_attempt",
+    "timestamp": "2023-10-27T10:15:00Z"
+  }
+]

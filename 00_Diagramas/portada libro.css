@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSentinel - Volumen 1 - Portada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* PALETA DE COLORES OFICIAL CYBERSENTINEL */
+        :root {
+            --cyber-dark: #0A1931;
+            --cyber-red: #FF2E63;
+            --cyber-blue: #00ADB5;
+            --cyber-light: #EEEEEE;
+            --cyber-white: #FFFFFF;
+            --warning: #FF9A00;
+            --secure: #00C897;
+            --neutral: #6C757D;
+        }
+
+        /* RESET Y CONFIGURACIÓN PÁGINA */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .page-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--cyber-white);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* ESTILOS PARA PORTADA */
+        .cover-page {
+            background-color: var(--cyber-dark);
+            color: var(--cyber-light);
+            min-height: 297mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40mm 30mm;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* PATRÓN BINARIO DE FONDO */
+        .binary-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--cyber-blue);
+            pointer-events: none;
+            line-height: 1.2;
+            white-space: pre-wrap;
+        }
+
+        /* DIAGRAMA CENTRAL */
+        .security-diagram {
+            margin: 20mm 0;
+            padding: 10mm;
+            border: 2px solid var(--cyber-blue);
+            border-radius: 8px;
+            background: rgba(10, 25, 49, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            text-align: center;
+        }
+
+        .legitimate-flow, .attack-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flow-item {
+            padding: 10px 20px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .legitimate .flow-item {
+            background: var(--secure);
+            color: var(--cyber-dark);
+            border-left: 4px solid var(--secure);
+        }
+
+        .attack .flow-item {
+            background: rgba(255, 46, 99, 0.2);
+            color: var(--cyber-red);
+            border-left: 4px solid var(--cyber-red);
+        }
+
+        .flow-arrow {
+            color: var(--cyber-blue);
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        /* TIPOGRAFÍA PORTADA */
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48pt;
+            font-weight: 900;
+            color: var(--cyber-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 10mm 0 5mm 0;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .volume-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--cyber-blue);
+            text-align: center;
+            margin-bottom: 8mm;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 18pt;
+            font-weight: 400;
+            color: var(--cyber-light);
+            text-align: center;
+            margin: 4mm 0;
+            line-height: 1.4;
+        }
+
+        .author {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 16pt;
+            font-weight: 500;
+            color: var(--cyber-white);
+            text-align: center;
+            margin-top: 15mm;
+            padding-top: 5mm;
+            border-top: 1px solid var(--cyber-blue);
+            width: 100%;
+        }
+
+        /* LÍNEAS DIVISORIAS */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--cyber-blue) 50%, 
+                transparent 100%);
+            margin: 10mm 0;
+            width: 80%;
+        }
+
+        /* CONTRAPORTADA */
+        .back-cover {
+            background-color: var(--cyber-dark);
+            color: var(--cyber-light);
+            min-height: 297mm;
+            padding: 30mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .synopsis {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 11pt;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 20mm;
+        }
+
+        .synopsis h2 {
+            color: var(--cyber-blue);
+            font-size: 16pt;
+            margin-bottom: 8mm;
+            text-align: center;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 15mm 0;
+        }
+
+        .qr-placeholder {
+            display: inline-block;
+            width: 50mm;
+            height: 50mm;
+            background: var(--cyber-white);
+            border: 2px solid var(--cyber-blue);
+            border-radius: 8px;
+            margin: 5mm auto;
+            position: relative;
+        }
+
+        .qr-placeholder::before {
+            content: "[QR CODE]";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--cyber-dark);
+            font-size: 10pt;
+        }
+
+        .editorial-info {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 9pt;
+            color: var(--neutral);
+            text-align: center;
+            border-top: 1px solid var(--neutral);
+            padding-top: 5mm;
+            margin-top: 10mm;
+        }
+
+        /* PÁGINA LEGAL */
+        .legal-page {
+            min-height: 297mm;
+            padding: 30mm;
+            background: var(--cyber-white);
+            color: var(--cyber-dark);
+        }
+
+        .legal-content {
+            max-width: 150mm;
+            margin: 0 auto;
+        }
+
+        .legal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24pt;
+            color: var(--cyber-red);
+            text-align: center;
+            margin-bottom: 15mm;
+        }
+
+        .legal-section {
+            margin-bottom: 10mm;
+        }
+
+        .legal-section h3 {
+            color: var(--cyber-blue);
+            font-size: 14pt;
+            margin-bottom: 5mm;
+            border-bottom: 1px solid var(--cyber-blue);
+            padding-bottom: 2mm;
+        }
+
+        .legal-section p {
+            font-size: 10pt;
+            line-height: 1.6;
+            margin-bottom: 3mm;
+        }
+
+        /* ESTILOS PARA CONTENIDO INTERNO */
+        .content-page {
+            min-height: 297mm;
+            padding: 25mm 30mm;
+            background: var(--cyber-white);
+            color: var(--cyber-dark);
+        }
+
+        .chapter-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28pt;
+            color: var(--cyber-red);
+            text-transform: uppercase;
+            margin-bottom: 10mm;
+            border-bottom: 3px solid var(--cyber-blue);
+            padding-bottom: 5mm;
+        }
+
+        .section-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--cyber-blue);
+            margin: 8mm 0 5mm 0;
+        }
+
+        .subsection-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--cyber-dark);
+            margin: 6mm 0 3mm 0;
+        }
+
+        .body-text {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 11pt;
+            line-height: 1.8;
+            margin-bottom: 4mm;
+            text-align: justify;
+        }
+
+        /* CUADROS DESTACADOS */
+        .cyber-info, .cyber-warning, .cyber-exercise {
+            margin: 6mm 0;
+            padding: 5mm;
+            border-radius: 4px;
+            font-size: 10.5pt;
+            line-height: 1.6;
+        }
+
+        .cyber-info {
+            border-left: 4px solid var(--cyber-blue);
+            background: rgba(0, 173, 181, 0.1);
+        }
+
+        .cyber-warning {
+            border-left: 4px solid var(--cyber-red);
+            background: rgba(255, 46, 99, 0.1);
+        }
+
+        .cyber-exercise {
+            border: 2px solid var(--warning);
+            background: rgba(255, 154, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        /* ENCABEZADOS Y PIES DE PÁGINA */
+        @page {
+            margin: 25mm 0;
+            size: A4;
+            
+            @top-left {
+                content: "CyberSentinel - Volumen 1";
+                font-family: 'Exo 2', sans-serif;
+                font-size: 9pt;
+                color: var(--cyber-blue);
+            }
+            
+            @top-right {
+                content: counter(page);
+                font-family: 'Exo 2', sans-serif;
+                font-size: 9pt;
+                color: var(--cyber-blue);
+            }
+            
+            @bottom-center {
+                content: "© 2024 Jairo David Perdomo García";
+                font-family: 'Exo 2', sans-serif;
+                font-size: 8pt;
+                color: var(--neutral);
+            }
+        }
+
+        /* MEDIA QUERIES PARA IMPRESIÓN */
+        @media print {
+            .page-container {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .cover-page, .back-cover, .legal-page, .content-page {
+                page-break-after: always;
+                min-height: 297mm;
+                height: 297mm;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+
+        /* UTILIDADES */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .mt-10 { margin-top: 10mm; }
+        .mb-10 { margin-bottom: 10mm; }
+        .p-10 { padding: 10mm; }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+
+        <!-- PORTADA PRINCIPAL -->
+        <div class="cover-page">
+            <div class="binary-pattern">
+01001000 01101001 01100100 01100101 01101110 00100000 01101001 01101110 00100000 01110000 01101100 01100001 01101001 01101110 00100000 01110011 01101001 01100111 01101000 01110100<br>
+00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001 00110000 00110001<br>
+01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 00100000 01100010 01111001 00100000 01100100 01100101 01110011 01101001 01100111 01101110<br>
+01000011 01011001 01000010 01000101 01010010 01010011 01000101 01001110 01010100 01001001 01001110 01000101 01001100 00100000 00110001 00101110 00110000
+            </div>
+            
+            <div class="security-diagram">
+                <div class="diagram-grid">
+                    <div class="legitimate-flow">
+                        <div class="flow-item legitimate">CLIENTE</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-item legitimate">AUTENTICACIÓN</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-item legitimate">TRANSACCIÓN</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-item legitimate">BASE DE DATOS</div>
+                    </div>
+                    <div class="attack-flow">
+                        <div class="flow-item attack">SPOOFING</div>
+                        <div class="flow-arrow">↑</div>
+                        <div class="flow-item attack">TAMPERING</div>
+                        <div class="flow-arrow">↑</div>
+                        <div class="flow-item attack">ATAQUE DOS</div>
+                        <div class="flow-arrow">↑</div>
+                        <div class="flow-item attack">COMPROMETIDO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h1 class="main-title">CYBERSENTINEL</h1>
+            
+            <div class="volume-title">Volumen 1: Fundamentos Universales</div>
+            
+            <div class="subtitle">Compendio de Ciberseguridad Moderna</div>
+            <div class="subtitle">Aplicación en Sectores Críticos<br>y Sistemas de Inteligencia Artificial</div>
+            
+            <div class="divider"></div>
+            
+            <div class="author">Jairo David Perdomo García</div>
+        </div>
+
+        <!-- PÁGINA LEGAL -->
+        <div class="legal-page">
+            <div class="legal-content">
+                <h2 class="legal-title">CYBERSENTINEL</h2>
+                
+                <div class="legal-section">
+                    <h3>INFORMACIÓN DE LA EDICIÓN</h3>
+                    <p><strong>Título completo:</strong> CyberSentinel - Volumen 1: Fundamentos Universales</p>
+                    <p><strong>Subtítulo:</strong> Compendio de Ciberseguridad Moderna - Aplicación en Sectores Críticos y Sistemas de IA</p>
+                    <p><strong>Autor:</strong> Jairo David Perdomo García</p>
+                    <p><strong>Edición:</strong> Primera edición, 2024</p>
+                    <p><strong>ISBN:</strong> 978-XXX-XXXXXX-X-X (Impreso)</p>
+                    <p><strong>ISBN Digital:</strong> 978-XXX-XXXXXX-X-X (PDF/ePUB)</p>
+                </div>
+                
+                <div class="legal-section">
+                    <h3>DERECHOS DE AUTOR</h3>
+                    <p>© 2024 Jairo David Perdomo García. Todos los derechos reservados.</p>
+                    <p>Ninguna parte de esta publicación puede ser reproducida, almacenada en un sistema de recuperación, o transmitida en cualquier forma o por cualquier medio, electrónico, mecánico, fotocopia, grabación o de otro tipo, sin el permiso previo por escrito del autor.</p>
+                </div>
+                
+                <div class="legal-section">
+                    <h3>AVISO LEGAL</h3>
+                    <p>Este libro tiene propósitos exclusivamente educativos. Las técnicas y procedimientos descritos deben ser utilizados únicamente en entornos controlados y con autorización explícita. El autor no se hace responsable del uso indebido de la información contenida en esta obra.</p>
+                </div>
+                
+                <div class="legal-section">
+                    <h3>RECONOCIMIENTOS</h3>
+                    <p>Este libro incorpora referencias a frameworks y estándares públicos como MITRE ATT&CK, NIST Cybersecurity Framework y OWASP, cuyos contenidos están disponibles bajo licencias de uso público.</p>
+                </div>
+                
+                <div class="legal-section">
+                    <h3>CONTACTO</h3>
+                    <p>Para información sobre licencias institucionales, traducciones o colaboraciones:</p>
+                    <p>Email: contacto@cybersentinel.com</p>
+                    <p>Web: www.cybersentinel.com</p>
+                </div>
+                
+                <div class="editorial-info mt-10">
+                    <p>Maquetación y diseño: CyberSentinel Design System</p>
+                    <p>Paleta de colores: CyberSentinel Official Palette v1.0</p>
+                    <p>Tipografías: Orbitron, Exo 2 (Google Fonts)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTRAPORTADA -->
+        <div class="back-cover">
+            <div class="synopsis">
+                <h2>SINOPSIS</h2>
+                <p><strong>CyberSentinel - Volumen 1: Fundamentos Universales</strong> es el primer tomo de un compendio exhaustivo que redefine la formación en ciberseguridad moderna. Diseñado como obra de referencia y guía práctica, aborda desde los principios básicos hasta las técnicas avanzadas de protección de sistemas críticos, integrando inteligencia artificial tanto en el análisis de amenazas como en la defensa proactiva.</p>
+                
+                <p>A través de casos de estudio realistas y ejercicios prácticos, el lector aprenderá a pensar como atacante para defender como profesional, dominando frameworks universales aplicables en cualquier sector y geografía. Con un enfoque pedagógico multimodal que incluye contenido digital complementario, mapas mentales interactivos y laboratorios virtuales, esta obra prepara a la próxima generación de expertos en seguridad digital.</p>
+                
+                <p>Dirigido a estudiantes, profesionales en activo y líderes técnicos, <strong>CyberSentinel</strong> establece un nuevo estándar en la formación integral de ciberseguridad para el siglo XXI.</p>
+            </div>
+            
+            <div class="qr-section">
+                <p>Escanea para acceder a recursos digitales exclusivos:</p>
+                <div class="qr-placeholder"></div>
+                <p>www.cybersentinel.com/recursos</p>
+            </div>
+            
+            <div class="editorial-info">
+                <p>CyberSentinel Publishing</p>
+                <p>ISBN: 978-XXX-XXXXXX-X-X | Depósito Legal: XX-XXXX-2024</p>
+                <p>© 2024 Jairo David Perdomo García | Todos los derechos reservados</p>
+                <p>Impreso en [CIUDAD, PAÍS] | Primera edición: Octubre 2024</p>
+            </div>
+        </div>
+
+        <!-- PÁGINA DE EJEMPLO DE CONTENIDO -->
+        <div class="content-page">
+            <h1 class="chapter-title">Capítulo 01</h1>
+            <h2 class="section-title">Fundamentos Universales de Ciberseguridad</h2>
+            
+            <div class="subsection-title">1.1. Introducción al Panorama Actual</div>
+            
+            <p class="body-text">La ciberseguridad moderna ha evolucionado de ser un complemento tecnológico a convertirse en un pilar fundamental de la operación de cualquier organización. En un mundo donde todo está conectado, la seguridad digital trasciende lo técnico para convertirse en un imperativo estratégico, operativo y, en muchos casos, de supervivencia.</p>
+            
+            <div class="cyber-info">
+                <strong>💡 CONCEPTO CLAVE:</strong> La triada CID (Confidencialidad, Integridad, Disponibilidad) sigue siendo el fundamento, pero se ha expandido a dimensiones como Autenticidad, No repudio y Responsabilidad para abordar amenazas modernas.
+            </div>
+            
+            <p class="body-text">El diagrama "Closure (Move)" que aparece en la portada de este libro representa un patrón de ataque universal. Aunque específico en su ejecución, cada paso simboliza una categoría de vulnerabilidad que se repite constantemente en diferentes sectores y geografías.</p>
+            
+            <div class="cyber-warning">
+                <strong>⚠️ ADVERTENCIA:</strong> Los principios de seguridad son universales, pero su aplicación debe contextualizarse. Lo que funciona en un entorno financiero puede necesitar adaptaciones en un entorno médico o industrial.
+            </div>
+            
+            <div class="cyber-exercise">
+                <strong>🧪 EJERCICIO PRÁCTICO 1.1:</strong> Analiza el diagrama de la portada. Identifica:<br>
+                1. ¿Qué activos están siendo protegidos?<br>
+                2. ¿Qué controles de seguridad faltan?<br>
+                3. ¿Cómo mejorarías esta arquitectura?
+            </div>
+            
+            <div class="subsection-title mt-10">1.2. Los Tres Pilares de CyberSentinel</div>
+            
+            <p class="body-text">Este libro se construye sobre tres compromisos fundamentales que guiarán nuestro aprendizaje:</p>
+            
+            <p class="body-text"><strong>1. Universalidad Aplicada:</strong> Usamos principios que funcionan en cualquier contexto, desde una startup fintech hasta un hospital o una planta manufacturera.</p>
+            
+            <p class="body-text"><strong>2. Ciclo Completo de Defensa:</strong> No solo te mostramos vulnerabilidades; te guiamos a través del ciclo completo: identificación, explotación controlada, mitigación y hardening.</p>
+            
+            <p class="body-text"><strong>3. Enfoque en Sectores Críticos:</strong> Trabajamos con organizaciones ficticias pero realistas que representan riesgos fundamentales para la sociedad.</p>
+        </div>
+
+    </div>
+
+    <div class="no-print" style="padding: 20px; text-align: center; background: var(--cyber-dark); color: var(--cyber-light); margin-top: 20px;">
+        <h3>Instrucciones para generar el PDF:</h3>
+        <p>1. Guarda este archivo como <strong>cybersentinel_portada.html</strong></p>
+        <p>2. Abre en Chrome o Edge</p>
+        <p>3. Presiona <strong>Ctrl+P</strong> (Windows) o <strong>Cmd+P</strong> (Mac)</p>
+        <p>4. Selecciona "Guardar como PDF"</p>
+        <p>5. Configuración recomendada:
+            <br>- Tamaño: A4
+            <br>- Márgenes: Predeterminados
+            <br>- Opciones: Marcas de registro (activar)
+            <br>- Escala: 100%
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b7503363.css",
+    "main.js": "./static/js/main.fbd7bc23.js",
+    "static/js/453.2e234f7e.chunk.js": "./static/js/453.2e234f7e.chunk.js",
+    "static/media/world-map-bg.png": "./static/media/world-map-bg.e0e885cc91a26bf7e1c4.png",
+    "index.html": "./index.html",
+    "main.b7503363.css.map": "./static/css/main.b7503363.css.map",
+    "main.fbd7bc23.js.map": "./static/js/main.fbd7bc23.js.map",
+    "453.2e234f7e.chunk.js.map": "./static/js/453.2e234f7e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7503363.css",
+    "static/js/main.fbd7bc23.js"
+  ]
+}

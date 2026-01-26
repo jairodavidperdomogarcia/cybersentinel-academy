@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa: Arquitectura API Gateway</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #0277bd; margin-bottom: 10px; }
+        ul { line-height: 1.6; }
+        .mermaid { margin: 30px 0; text-align: center; }
+        .legend-box { background-color: #e1f5fe; padding: 20px; border-radius: 8px; border-left: 5px solid #0277bd; }
+        .layer-title { font-weight: bold; color: #01579b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arquitectura de Seguridad: API Gateway</h1>
+        <p>Visualización de las capas de defensa ("El Embudo de Seguridad").</p>
+        
+        <div class="mermaid">
+flowchart TD
+    subgraph CLIENT ["Cliente Externo"]
+        User["Usuario / App"]
+        Attacker["Atacante"]
+    end
+
+    subgraph GATEWAY ["🛡️ API Gateway (The Guardian)"]
+        direction TB
+        
+        %% Capa 1: Network
+        TLS{"🔐 TLS Termination<br>(HTTPS Decryption)"}
+        
+        %% Capa 2: WAF
+        WAF{"🔥 WAF / Filtro<br>(SQLi, XSS)"}
+        
+        %% Capa 3: Identity
+        Auth{"🆔 AuthN / AuthZ<br>(Validar JWT Token)"}
+        
+        %% Capa 4: Traffic Control
+        RateLimit{"⏱️ Rate Limiter<br>(Max 10 req/sec)"}
+        
+        %% Routing
+        Router["🔀 Router / Load Balancer"]
+    end
+
+    subgraph BACKEND ["Microservicios (Zona Segura)"]
+        ServiceA["📦 Servicio de Pagos"]
+        ServiceB["👤 Servicio de Usuarios"]
+    end
+
+    %% Flow Legítimo
+    User -->|"HTTPS Request"| TLS
+    TLS --> WAF
+    WAF -->|"Limpio"| Auth
+    Auth -->|"Token Válido"| RateLimit
+    RateLimit -->|"Bajo Límite"| Router
+    Router --> ServiceA
+    Router --> ServiceB
+
+    %% Flow Ataques (Bloqueos)
+    Attacker -.->|"HTTP (Inseguro)"| TLS
+    TLS -.->|"Redirect HTTPS"| User
+    
+    Attacker -.->|"SQL Injection: ' OR 1=1"| WAF
+    WAF -.->|"❌ 403 Forbidden"| Block1["⛔ Bloqueo por WAF"]
+    
+    Attacker -.->|"Token Falso / Expirado"| Auth
+    Auth -.->|"❌ 401 Unauthorized"| Block2["⛔ Bloqueo de Identidad"]
+    
+    Attacker -.->|"DDoS (1000 req/sec)"| RateLimit
+    RateLimit -.->|"❌ 429 Too Many Requests"| Block3["⛔ Bloqueo de Tráfico"]
+
+    %% Estilos
+    style GATEWAY fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style BACKEND fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style Block1 fill:#ffcdd2,stroke:#c62828
+    style Block2 fill:#ffcdd2,stroke:#c62828
+    style Block3 fill:#ffcdd2,stroke:#c62828
+        </div>
+
+        <div class="legend-box">
+            <h2>Leyenda de Capas de Defensa</h2>
+            
+            <h3>1. 🔐 TLS Termination (Cifrado)</h3>
+            <ul>
+                <li><strong>Función:</strong> Descifra el tráfico HTTPS entrante.</li>
+                <li><strong>Seguridad:</strong> Asegura que nadie pueda leer los datos en tránsito. Rechaza conexiones no cifradas.</li>
+            </ul>
+
+            <h3>2. 🔥 WAF (Web Application Firewall)</h3>
+            <ul>
+                <li><strong>Función:</strong> Inspecciona el <em>contenido</em> del paquete.</li>
+                <li><strong>Defensa:</strong> Busca patrones de ataque conocidos como Inyección SQL o XSS. Es el primer filtro de "basura".</li>
+            </ul>
+
+            <h3>3. 🆔 AuthN / AuthZ (Identidad)</h3>
+            <ul>
+                <li><strong>Función:</strong> Verifica "¿Quién eres?" y "¿Tienes permiso?".</li>
+                <li><strong>Defensa:</strong> Valida Tokens (JWT). Si no tienes credenciales válidas, no pasas.</li>
+            </ul>
+
+            <h3>4. ⏱️ Rate Limiter (Control de Tráfico)</h3>
+            <ul>
+                <li><strong>Función:</strong> Controla la velocidad de las peticiones.</li>
+                <li><strong>Defensa:</strong> Protege contra ataques de Fuerza Bruta y DoS. Te frena si vas muy rápido.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+name: "INVESTIGACION_IA_01"
+description: "Playbook de Investigación Asistida por IA para incidentes de aplicación"
+version: "1.0"
+trigger:
+  type: "log_monitor"
+  source: "WAF"
+  event_type: "suspicious_payload"
+
+steps:
+  - id: "ai_analysis"
+    action: "ai_assistant.analyze_alert"
+    input: 
+      description: "{{ event.raw_log }}"
+    next: "evaluate_risk"
+    
+  - id: "evaluate_risk"
+    type: "condition"
+    check:
+      # Verificamos si la IA detectó severidad alta (basado en recomendaciones normalizadas)
+      - if: "len(result.ai_analysis.recommendations) > 0 and result.ai_analysis.recommendations[0].severity == 'alta'"
+        goto: "high_severity_response"
+      - else:
+        goto: "low_severity_response"
+
+  - id: "high_severity_response"
+    action: "notification.send"
+    input:
+      channel: "slack"
+      message: "🚨 ALERTA CRÍTICA IA: {{ result.ai_analysis.summary }}"
+    next: "auto_block"
+
+  - id: "auto_block"
+    action: "firewall.block_ip"
+    input:
+      # Asumimos que si es alta severidad, la IA extrajo al menos una IP
+      ip: "{{ result.ai_analysis.prioritized_ips[0] }}"
+      reason: "IA Decision: {{ result.ai_analysis.summary }}"
+    next: "end"
+
+  - id: "low_severity_response"
+    action: "logging.write"
+    input:
+      message: "ℹ️ IA Info: {{ result.ai_analysis.summary }} - No se requiere acción inmediata."
+    next: "end"
+
+  - id: "end"
+    type: "end"

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa: Amenazas Banco Digital</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #2980b9; margin-bottom: 10px; }
+        ul { line-height: 1.6; }
+        .mermaid { margin: 30px 0; text-align: center; }
+        .legend-box { background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diagrama de Amenazas: El Banco Digital</h1>
+        <p>Visualización del "Camino Feliz" (Verde) vs Vectores de Ataque (Rojo).</p>
+        
+        <div class="mermaid">
+flowchart TD
+    subgraph ACTORS ["Actores"]
+        Alice["Cliente (Alice)"]
+        Attacker["Atacante"]
+    end
+
+    subgraph SYSTEM ["Sistema Bancario"]
+        App["App Móvil"]
+        API["API Gateway"]
+        DB[("Base de Datos")]
+    end
+
+    %% Happy Path
+    Alice -->|"1. Login & Transferir $50"| App
+    App -->|"2. POST /transfer"| API
+    API -->|"3. Validar Saldo"| DB
+    DB -->|"4. OK"| API
+    API -->|"5. Ejecutar"| DB
+    
+    %% Threat Vectors
+    Attacker -.->|"A. Spoofing (Robo de Identidad)"| App
+    Attacker -.->|"C. Info Disclosure (Enumeración)"| API
+    
+    Attacker -.->|"B. Tampering (Interceptar)"| ManInMiddle{"Red Insegura"}
+    App --> ManInMiddle
+    ManInMiddle -.->|"Modificar: $1000"| API
+    
+    Attacker -.->|"E. Elevation (Monto negativo)"| API
+    Attacker -.->|"D. DoS (1M peticiones)"| API
+
+    %% Styling
+    linkStyle 0,1,2,3,4 stroke:#0f0,stroke-width:2px,color:green;
+    style Alice fill:#cfc,stroke:#333
+    style Attacker fill:#f99,stroke:#333
+    style ManInMiddle fill:#f96,stroke:#333
+        </div>
+
+        <div class="legend-box">
+            <h2>Leyenda de Componentes</h2>
+            
+            <h3>🎭 ACTORS (Actores)</h3>
+            <ul>
+                <li><strong>Alice (Cliente):</strong> Representa al usuario legítimo que intenta realizar una operación válida (enviar $50). Su camino está marcado en verde.</li>
+                <li><strong>Attacker (Atacante):</strong> El adversario que intenta romper el sistema. Sus acciones están marcadas con líneas punteadas rojas.</li>
+            </ul>
+
+            <h3>🏦 SYSTEM (Sistema Bancario)</h3>
+            <ul>
+                <li><strong>App Móvil:</strong> La interfaz del cliente. Es el primer punto de contacto y vulnerable a robos físicos o clonación (Spoofing).</li>
+                <li><strong>API Gateway:</strong> La "puerta de entrada" al servidor del banco. Es donde ocurren la mayoría de los ataques lógicos (DoS, Inyección de datos falsos).</li>
+                <li><strong>Base de Datos (DB):</strong> El corazón del sistema donde se guarda el dinero. Si el atacante llega aquí sin validación, el juego termina.</li>
+            </ul>
+
+            <h3>🕸️ VECTORES DE ATAQUE (Interacciones)</h3>
+            <ul>
+                <li><strong>ManInMiddle (Red Insegura):</strong> Un punto intermedio (ej. WiFi público) donde el atacante intercepta la comunicación entre la App y la API para modificar los datos (Tampering).</li>
+                <li><strong>Spoofing:</strong> Hacerse pasar por Alice.</li>
+                <li><strong>Elevation:</strong> Intentar enviar saldos negativos para ganar dinero.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

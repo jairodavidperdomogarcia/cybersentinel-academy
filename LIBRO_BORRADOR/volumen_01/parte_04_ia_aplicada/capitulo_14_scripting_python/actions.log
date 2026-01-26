@@ -1,0 +1,3 @@
+BLOCK_IP 192.168.10.50 from alert alert-001 (fuerza_bruta_ssh)
+BLOCK_IP 45.33.22.11 from alert alert-003 (sql_injection_attempt)
+PROPOSAL [AI]: BLOCK_IP 192.168.1.50 (Reason: Un dispositivo en la red local (192.168.1.50) intentó acceder como 'admin' y falló. Si esto ocurre repetidamente, podría ser un ataque de fuerza bruta interno o un administrador que olvidó su clave.)

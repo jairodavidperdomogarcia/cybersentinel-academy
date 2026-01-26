@@ -1,0 +1,422 @@
+/* GlobalWarRoom.css - CyberSentinel War Room Theme */
+
+:root {
+  --bg-bunker: #050505;
+  --color-safe: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-muted: #4b5563;
+  --scanline-color: rgba(0, 255, 0, 0.05);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--bg-bunker);
+}
+
+.war-room-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-bunker);
+  color: var(--color-safe);
+  font-family: 'Courier New', Courier, monospace;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: 320px 1fr 320px;
+  grid-template-rows: 80px 1fr 60px;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+/* Status Modes */
+.mode-black-sky {
+  filter: brightness(0.6) contrast(1.4) grayscale(0.8);
+  color: #a3a3a3;
+  --scanline-color: rgba(255, 255, 255, 0.05);
+}
+
+.mode-omega {
+  filter: contrast(1.5) hue-rotate(340deg);
+  color: var(--color-danger);
+  --scanline-color: rgba(255, 0, 0, 0.1);
+}
+
+.mode-survival {
+  filter: sepia(1) hue-rotate(180deg) saturate(1.5); /* Blue/Cyber look */
+  color: #0ea5e9; /* Sky blue */
+  --scanline-color: rgba(14, 165, 233, 0.1);
+}
+
+/* CRT Scanline Effect */
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.scanlines::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 100;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+  100% { opacity: 0.02; }
+}
+
+/* Header Styling */
+.war-header {
+  grid-column: 1 / -1;
+  border-bottom: 2px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.header-title h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.defcon-display {
+  display: flex;
+  gap: 24px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 1px solid currentColor;
+  padding: 5px 15px;
+  background: rgba(0,0,0,0.3);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+}
+
+.nav-link {
+  color: currentColor;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.btn-exit {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: currentColor;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-exit:hover {
+  background: rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 15px currentColor;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(10, 10, 10, 0.8);
+  border-right: 1px solid currentColor;
+}
+
+.sidebar-right {
+  border-left: 1px solid currentColor;
+  border-right: none;
+}
+
+.panel-title {
+  font-size: 1rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Scenario Buttons */
+.scenario-btn {
+  padding: 20px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid currentColor;
+  color: currentColor;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.scenario-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(5px);
+}
+
+.scenario-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+  border-left: 4px solid currentColor;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Main Map Area */
+.main-display {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+
+.map-grid {
+  width: 90%;
+  height: 80%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    var(--map-bg),
+    linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .03) 25%, rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .03) 75%, rgba(255, 255, 255, .03) 76%, transparent 77%, transparent), 
+    linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .03) 25%, rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .03) 75%, rgba(255, 255, 255, .03) 76%, transparent 77%, transparent);
+  background-size: cover, cover, 50px 50px, 50px 50px;
+  background-position: center;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* Map Nodes */
+.map-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.5s;
+}
+
+.node-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: #000;
+  position: relative;
+}
+
+.node-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.status-online .node-icon {
+  box-shadow: 0 0 20px currentColor;
+  animation: pulse 2s infinite;
+}
+
+.node-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  border: 1px solid currentColor;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+/* Alert Overlay */
+.alert-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.95);
+  padding: 40px 60px;
+  border: 4px solid currentColor;
+  box-shadow: 0 0 100px rgba(0,0,0,0.9);
+  z-index: 50;
+  min-width: 600px;
+}
+
+.alert-title {
+  font-size: 5rem;
+  margin: 0;
+  letter-spacing: 10px;
+  animation: blink 0.3s infinite;
+  text-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+}
+
+.alert-message {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  border-top: 1px solid currentColor;
+  padding-top: 20px;
+}
+
+/* Metrics */
+.metric-container {
+  margin-top: 24px;
+}
+
+.metric-bar-bg {
+  width: 100%;
+  height: 24px;
+  border: 1px solid currentColor;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  background: currentColor;
+  transition: width 0.5s ease-out;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Footer */
+.war-footer {
+  grid-column: 1 / -1;
+  border-top: 1px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Survival Engine Visual Styles */
+.globe-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  animation: float 6s ease-in-out infinite;
+}
+
+.globe-core {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.4), rgba(0, 0, 0, 0.8));
+  box-shadow: 0 0 60px rgba(14, 165, 233, 0.4);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.1);
+}
+
+.ring-1 { width: 340px; height: 340px; animation: spin 10s linear infinite; border-top-color: transparent; border-bottom-color: transparent; }
+.ring-2 { width: 400px; height: 400px; animation: spin-reverse 15s linear infinite; border-left-color: transparent; border-right-color: transparent; }
+.ring-3 { width: 480px; height: 480px; animation: spin 20s linear infinite; border: 1px dashed rgba(14, 165, 233, 0.2); }
+
+.crisis-active .globe-core {
+  background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.6), rgba(0, 0, 0, 0.9));
+  box-shadow: 0 0 80px rgba(239, 68, 68, 0.6);
+  animation: pulse-crisis 0.5s infinite;
+}
+
+.crisis-active .orbit-ring {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+@keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes spin-reverse { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes pulse-crisis { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }

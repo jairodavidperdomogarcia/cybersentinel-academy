@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa: Lab 01 - Reglas vs Comportamiento</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diagrama de Flujo: Reglas Estáticas vs Comportamiento</h1>
+        <div class="mermaid">
+flowchart TD
+    subgraph INPUT [Entrada de Tráfico]
+        User[Usuario/Atacante] -->|IP, N° Intentos| Router{Distribuidor}
+    end
+
+    subgraph CLASSIC [Firewall Clásico - Reglas Estáticas]
+        Router -->|Ruta A| RuleIP{¿IP en Blacklist?}
+        RuleIP -- Sí --> Block1[BLOQUEADO: IP Prohibida]
+        RuleIP -- No --> RuleRate{¿Intentos > 5?}
+        RuleRate -- Sí --> Block2[BLOQUEADO: Rate Limit]
+        RuleRate -- No --> Allow[PERMITIDO]
+    end
+
+    subgraph MODERN [Detector IA - Comportamiento]
+        Router -->|Ruta B| Model[Modelo de Aprendizaje]
+        Model -->|Datos Históricos| Context[Promedio Normal: 2 intentos]
+        Context --> Check{¿Desviación > 2.0?}
+        Check -- Sí --> Alert[ALERTA IA: Comportamiento Anómalo]
+        Check -- No --> Normal[Comportamiento Normal]
+    end
+
+    subgraph SCENARIO [Caso 3: Atacante Inteligente]
+        Smart[Atacante: 5 intentos] -.->|Evasión| RuleRate
+        Smart -.->|Detección| Check
+        Note1[Sabe que el límite es >5,\nasí que hace exactamente 5] --- Smart
+        Note2[Aunque 5 está 'permitido',\nes 2.5 veces lo normal] --- Check
+    end
+
+    style Block1 fill:#f96,stroke:#333,stroke-width:2px
+    style Block2 fill:#f96,stroke:#333,stroke-width:2px
+    style Allow fill:#9f9,stroke:#333,stroke-width:2px
+    style Alert fill:#f00,color:#fff,stroke:#333,stroke-width:4px
+    style Normal fill:#9f9,stroke:#333,stroke-width:2px
+        </div>
+    </div>
+</body>
+</html>

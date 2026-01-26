@@ -1,0 +1,46 @@
+name: "PHISHING_RESPONSE_01"
+description: "Playbook para respuesta automática a correos de phishing"
+version: "1.0"
+trigger:
+  type: "email"
+  source: "MailGateway"
+  event_type: "incoming_message"
+
+steps:
+  - id: "enrich_sender"
+    action: "threat_intel.check_ip"
+    input:
+      ip: "{{ event.sender_ip }}"
+    next: "decision_point"
+
+  - id: "decision_point"
+    type: "condition"
+    check:
+      - if: "result.enrich_sender.reputation == 'MALICIOUS' and result.enrich_sender.confidence > 80"
+        goto: "quarantine_action"
+      - else:
+        goto: "log_action"
+
+  - id: "quarantine_action"
+    action: "email_gateway.quarantine"
+    input:
+      message_id: "{{ event.message_id }}"
+      reason: "Phishing detectado para {{ event.recipient }} desde {{ event.sender_ip }}"
+    next: "notify_success"
+
+  - id: "notify_success"
+    action: "notification.send"
+    input:
+      channel: "slack"
+      message: "Correo en cuarentena por posible phishing: {{ event.message_id }} desde {{ event.sender_ip }}"
+    next: "end"
+
+  - id: "log_action"
+    action: "logging.write"
+    input:
+      message: "Correo marcado como sospechoso pero no bloqueado: {{ event.message_id }} desde {{ event.sender_ip }}"
+    next: "end"
+
+  - id: "end"
+    type: "end"
+

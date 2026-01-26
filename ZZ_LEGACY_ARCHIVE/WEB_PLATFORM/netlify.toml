@@ -1,0 +1,10 @@
+
+# Configuración para las funciones de Netlify
+[functions]
+  # Directorio donde se encuentran las funciones serverless.
+  directory = "netlify/functions/"
+
+  # Especifica la versión de Node.js que deben usar las funciones.
+  # Es una buena práctica para asegurar la compatibilidad.
+  node_bundler = "esbuild"
+  included_files = ["!node_modules/node-fetch/**"]

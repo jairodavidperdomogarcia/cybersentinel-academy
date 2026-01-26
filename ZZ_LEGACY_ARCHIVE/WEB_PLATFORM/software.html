@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software de Ciberseguridad | CyberEcosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <nav class="navbar" aria-label="Navegación principal">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">🛡️</span> CyberEcosystem
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link active">CyberEcosystem</a>
+                    <div class="dropdown-content">
+                        <a href="glosario.html">Glosario de Términos</a>
+                        <a href="guias.html">Guías de Autoprotección</a>
+                        <a href="libreria.html">Biblioteca (Libros)</a>
+                        <a href="videoteca.html">Videoteca</a>
+                        <a href="software.html">Software Recomendado</a>
+                        <a href="hardware.html">Hardware Recomendado</a>
+                    </div>
+                </div>
+                <a href="academia.html" class="nav-link btn btn-secondary">CyberSentinel Academy</a>
+            </div>
+            <div class="mobile-toggle">☰</div>
+        </div>
+    </nav>
+    <main id="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Software Recomendado</h1>
+                <p class="page-subtitle">El arsenal del analista y el hacker ético.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+
+                <div id="filter-container" class="filter-container">
+                    <button class="filter-btn active" data-filter="all">Mostrar Todo</button>
+                </div>
+
+                <div class="software-category">
+                    <h2 class="category-title">Plataformas de Virtualización (Hipervisores)</h2>
+                    <div class="software-grid">
+
+                        <div class="software-card" data-tags="Gratuito,Open Source,Principiantes">
+                            <div class="card-header">
+                                <img src="assets/images/virtualbox-logo.png" alt="Logo de VirtualBox" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>VirtualBox</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Hipervisor gratuito y de código abierto, ideal para empezar a construir laboratorios de hacking. Es multiplataforma y cuenta con una gran comunidad, lo que facilita encontrar tutoriales y soluciones a problemas.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Gratuito</span>
+                                <span class="tag">Open Source</span>
+                                <span class="tag">Principiantes</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+
+                        <div class="software-card" data-tags="Profesional,Alto Rendimiento,Industria">
+                            <div class="card-header">
+                                <img src="assets/images/vmware-logo.svg" alt="Logo de VMware" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>VMware Workstation</h3>
+                                    <p>Plataforma: Windows, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Considerado el estándar profesional para la virtualización en escritorio. Ofrece un rendimiento superior y funciones de red avanzadas. La versión "Player" es gratuita para uso personal, mientras que la "Pro" es de pago.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Profesional</span>
+                                <span class="tag">Alto Rendimiento</span>
+                                <span class="tag">Industria</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.vmware.com/products/workstation-pro.html" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+
+                        <div class="software-card" data-tags="Nativo de Windows,Rápido,Avanzado">
+                            <div class="card-header">
+                                <img src="assets/images/hyper-v-logo.svg" alt="Logo de Hyper-V" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Microsoft Hyper-V</h3>
+                                    <p>Plataforma: Windows</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El hipervisor nativo integrado en las versiones Pro y Enterprise de Windows. Es extremadamente rápido pero puede generar conflictos con otros hipervisores y su configuración de red para hacking es menos intuitiva.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Nativo de Windows</span>
+                                <span class="tag">Rápido</span>
+                                <span class="tag">Avanzado</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="software-category">
+                    <h2 class="category-title">Distribuciones de Pentesting</h2>
+                    <div class="software-grid">
+                        
+                        <div class="software-card" data-tags="Pentesting,Seguridad Ofensiva,Análisis Forense,Linux">
+                            <div class="card-header">
+                                <img src="assets/images/kali-logo.png" alt="Logo de Kali Linux" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Kali Linux</h3>
+                                    <p>Plataforma: Linux (Debian)</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                La distribución de Linux por excelencia para pruebas de penetración y auditoría de seguridad. Incluye más de 600 herramientas preinstaladas que cubren todas las fases de un ataque, desde el reconocimiento hasta el post-análisis. Es el estándar de la industria.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Pentesting</span>
+                                <span class="tag">Seguridad Ofensiva</span>
+                                <span class="tag">Análisis Forense</span>
+                                <span class="tag">Linux</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.kali.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+
+                        <div class="software-card" data-tags="Pentesting,Anonimato,Cloud,Linux">
+                            <div class="card-header">
+                                <img src="assets/images/parrot-logo.png" alt="Logo de Parrot Security" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Parrot Security</h3>
+                                    <p>Plataforma: Linux (Debian)</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Una alternativa robusta a Kali, centrada en la nube y el anonimato. Incluye herramientas para pentesting, forense digital y criptografía. Su entorno de escritorio es más ligero, lo que la hace ideal para máquinas con menos recursos.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Pentesting</span>
+                                <span class="tag">Anonimato</span>
+                                <span class="tag">Cloud</span>
+                                <span class="tag">Linux</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.parrotsec.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+
+                        <div class="software-card" data-tags="Control de Versiones,Código Fuente,Colaboración">
+                            <div class="card-header">
+                                <img src="assets/images/git-logo.svg" alt="Logo de Git" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Git</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El sistema de control de versiones distribuido más utilizado del mundo. Esencial para clonar repositorios de herramientas desde GitHub, gestionar tus propios scripts y mantener un historial de cambios en tus proyectos de hacking.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Control de Versiones</span>
+                                <span class="tag">Código Fuente</span>
+                                <span class="tag">Colaboración</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Programación,Scripting,Automatización">
+                            <div class="card-header">
+                                <img src="assets/images/python-logo.svg" alt="Logo de Python" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Python 3 & Pip</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El lenguaje de programación predilecto para la seguridad informática. Su sintaxis limpia y su enorme cantidad de librerías (manejadas con Pip) lo hacen perfecto para automatizar tareas, desarrollar exploits y realizar análisis de datos.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Programación</span>
+                                <span class="tag">Scripting</span>
+                                <span class="tag">Automatización</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Web Hacking,Proxy,Seguridad Web">
+                            <div class="card-header">
+                                <img src="assets/images/burp-logo.svg" alt="Logo de Burp Suite" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Burp Suite Community</h3>
+                                    <p>Plataforma: Windows, macOS, Linux (Java)</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                La herramienta indispensable para el hacking de aplicaciones web. Actúa como un proxy de intercepción que permite inspeccionar, modificar y reenviar el tráfico entre un navegador y un servidor, revelando vulnerabilidades.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Web Hacking</span>
+                                <span class="tag">Proxy</span>
+                                <span class="tag">Seguridad Web</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://portswigger.net/burp" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Explotación,Framework,Seguridad Ofensiva">
+                            <div class="card-header">
+                                <img src="assets/images/metasploit-logo.svg" alt="Logo de Metasploit" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Metasploit Framework</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El framework de explotación más famoso y potente. Proporciona información sobre vulnerabilidades y ayuda en el desarrollo de exploits y la post-explotación. Es una herramienta fundamental para cualquier pentester.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Explotación</span>
+                                <span class="tag">Framework</span>
+                                <span class="tag">Seguridad Ofensiva</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.metasploit.com/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Escáner de Red,Reconocimiento,Enumeración">
+                            <div class="card-header">
+                                <img src="assets/images/nmap-logo.svg" alt="Logo de Nmap" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Nmap</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El escáner de puertos y descubridor de redes por excelencia. Permite identificar hosts en una red, los servicios que ofrecen, los sistemas operativos que ejecutan y el tipo de filtros de paquetes o firewalls que utilizan. Es el primer paso en cualquier reconocimiento.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Escáner de Red</span>
+                                <span class="tag">Reconocimiento</span>
+                                <span class="tag">Enumeración</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://nmap.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Análisis de Red,Sniffing,Forense">
+                            <div class="card-header">
+                                <img src="assets/images/wireshark-logo.svg" alt="Logo de Wireshark" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Wireshark</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                El analizador de protocolos de red más utilizado del mundo. Permite capturar y examinar en detalle el tráfico que pasa por una red, desde paquetes individuales hasta conversaciones completas. Esencial para el análisis forense y la depuración de red.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Análisis de Red</span>
+                                <span class="tag">Sniffing</span>
+                                <span class="tag">Forense</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.wireshark.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Redes,CLI,Versátil">
+                            <div class="card-header">
+                                <img src="assets/images/netcat-logo.svg" alt="Logo de Netcat" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Netcat (nc)</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Conocida como la "navaja suiza de las redes", es una utilidad de línea de comandos que lee y escribe datos a través de conexiones de red, usando TCP o UDP. Sirve para todo: desde abrir puertos y transferir archivos hasta crear backdoors simples.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Redes</span>
+                                <span class="tag">CLI</span>
+                                <span class="tag">Versátil</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://nmap.org/ncat/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <div class="software-card" data-tags="Fuerza Bruta,Diccionarios,Enumeración">
+                            <div class="card-header">
+                                <img src="assets/images/seclists-logo.svg" alt="Logo de Seclists" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Seclists</h3>
+                                    <p>Plataforma: N/A (Colección de texto)</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                La colección de listas de palabras más grande y utilizada para pruebas de seguridad. Contiene desde nombres de usuario y contraseñas comunes hasta directorios web, payloads de inyección y mucho más. Es un recurso indispensable para cualquier tipo de ataque de fuerza bruta o enumeración.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Fuerza Bruta</span>
+                                <span class="tag">Diccionarios</span>
+                                <span class="tag">Enumeración</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar en GitHub</a>
+                            </div>
+                        </div>
+                        <!-- Aquí se añadirán más tarjetas de herramientas -->
+                    </div>
+                </div>
+
+                <div class="software-category">
+                    <h2 class="category-title">Herramientas Esenciales de Pentesting</h2>
+                    <div class="software-grid">
+                        <div class="software-card" data-tags="Emulador de Terminal,CLI,Avanzado">
+                            <div class="card-header">
+                                <img src="assets/images/terminator-logo.svg" alt="Logo de Terminator" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Terminator</h3>
+                                    <p>Plataforma: Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Un emulador de terminal avanzado que permite dividir la ventana en múltiples paneles (horizontales y verticales). Indispensable para gestionar varias tareas a la vez, como ejecutar un escaneo, monitorear logs y tomar notas, todo en una sola vista.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Terminal</span>
+                                <span class="tag">Productividad</span>
+                                <span class="tag">CLI</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://gnome-terminator.org/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                        <!-- Aquí se añadirán más tarjetas de herramientas -->
+                        <div class="software-card" data-tags="Editor de Código,Desarrollo,Extensible">
+                            <div class="card-header">
+                                <img src="assets/images/vscode-logo.svg" alt="Logo de Visual Studio Code" class="card-logo">
+                                <div class="card-title-group">
+                                    <h3>Visual Studio Code</h3>
+                                    <p>Plataforma: Windows, macOS, Linux</p>
+                                </div>
+                            </div>
+                            <p class="card-description">
+                                Un editor de código fuente ligero pero potente que se ha convertido en el estándar de facto para el desarrollo moderno. Su fortaleza radica en su inmenso ecosistema de extensiones, que lo adaptan para cualquier tarea, desde escribir exploits en Python hasta analizar código.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Editor de Código</span>
+                                <span class="tag">Desarrollo</span>
+                                <span class="tag">Extensible</span>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="btn-visit">Visitar Sitio Oficial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aquí se añadirán más categorías -->
+
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div>© 2026 CyberEcosystem. Todos los derechos reservados.</div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js?v=1.1"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterContainer = document.getElementById('filter-container');
+        const softwareCards = document.querySelectorAll('.software-card');
+        const tags = new Set();
+
+        softwareCards.forEach(card => {
+            if (card.dataset.tags) {
+                const cardTags = card.dataset.tags.split(',');
+                cardTags.forEach(tag => tags.add(tag.trim()));
+            }
+        });
+
+        tags.forEach(tag => {
+            const button = document.createElement('button');
+            button.className = 'filter-btn';
+            button.dataset.filter = tag;
+            button.textContent = tag;
+            filterContainer.appendChild(button);
+        });
+
+        filterContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('filter-btn')) {
+                const filter = e.target.dataset.filter;
+
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
+
+                softwareCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.tags.includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

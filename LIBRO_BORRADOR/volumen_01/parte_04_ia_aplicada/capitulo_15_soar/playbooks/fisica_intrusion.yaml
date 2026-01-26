@@ -1,0 +1,49 @@
+name: "RESPUESTA_INTRUSION_FISICA_01"
+description: "Playbook de respuesta ante detección de intrusos por cámaras de seguridad"
+version: "1.0"
+trigger:
+  type: "iot_camera"
+  source: "CCTV_Server"
+  event_type: "physical_intrusion"
+
+steps:
+  - id: "classify_intrusion"
+    type: "condition"
+    check:
+      - if: "event.confidence > 0.85"
+        goto: "high_confidence_response"
+      - else:
+        goto: "log_suspicious_activity"
+
+  - id: "high_confidence_response"
+    action: "notification.send"
+    input:
+      channel: "slack"
+      message: "🚨 ALERTA FÍSICA: Intruso confirmado en {{ event.location }}. Confianza: {{ event.confidence }}"
+    next: "lockdown_area"
+
+  - id: "lockdown_area"
+    action: "firewall.block_ip"
+    input:
+      # En un escenario real, esto bloquearía accesos físicos o digitales asociados a esa zona
+      # Simulamos bloqueando la subred de IoT de esa zona para evitar pivoting
+      ip: "192.168.50.0/24" 
+      reason: "Protocolo LOCKDOWN: Intrusión física en {{ event.location }}"
+    next: "notify_guards"
+
+  - id: "notify_guards"
+    action: "email_gateway.send"
+    input:
+      to: "security_guards@cybersentinel.local"
+      subject: "DESPLIEGUE INMEDIATO: {{ event.location }}"
+      body: "Se requiere presencia física inmediata. Intruso detectado por sistema de visión artificial."
+    next: "end"
+
+  - id: "log_suspicious_activity"
+    action: "logging.write"
+    input:
+      message: "👁️ Actividad sospechosa en {{ event.location }} (Confianza: {{ event.confidence }}). Monitorizando..."
+    next: "end"
+
+  - id: "end"
+    type: "end"

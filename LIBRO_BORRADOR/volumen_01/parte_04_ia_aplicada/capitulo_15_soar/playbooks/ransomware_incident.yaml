@@ -1,0 +1,23 @@
+name: "RANSOMWARE_INCIDENT_01"
+description: "Playbook que delega la respuesta de ransomware al script del Cap 14"
+version: "1.0"
+trigger:
+  type: "alert"
+  source: "Wazuh"
+  event_type: "ransomware_detected"
+
+steps:
+  - id: "auto_ransomware_response"
+    action: "cap14.run_ransomware_playbook"
+    input: {}
+    next: "notify_summary"
+
+  - id: "notify_summary"
+    action: "notification.send"
+    input:
+      channel: "slack"
+      message: "SOAR ejecutó playbook de ransomware. Alertas: {{ result.auto_ransomware_response.alerts_processed }}, Paciente cero: {{ result.auto_ransomware_response.patient_zero }}"
+    next: "end"
+
+  - id: "end"
+    type: "end"

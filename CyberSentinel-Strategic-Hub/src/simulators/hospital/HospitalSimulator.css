@@ -1,0 +1,393 @@
+﻿.hospital-simulator {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+  padding: 20px;
+}
+
+.simulator-header {
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--primary);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.simulator-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.simulator-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  min-width: 120px;
+}
+
+.stat .label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 5px;
+}
+
+.stat .value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.simulator-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 1024px) {
+  .simulator-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Patients Panel */
+.patients-panel {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.patients-panel h3 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+.patients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.patient-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.patient-card.estable {
+  border-color: var(--success);
+}
+
+.patient-card.grave {
+  border-color: var(--warning);
+}
+
+.patient-card.crítico {
+  border-color: var(--danger);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.patient-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.patient-name {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: white;
+}
+
+.patient-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.patient-status.vivo {
+  background: rgba(0, 255, 157, 0.2);
+  color: var(--success);
+}
+
+.patient-status.evacuado {
+  background: rgba(255, 157, 0, 0.2);
+  color: var(--warning);
+}
+
+.patient-vitals {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.vital {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.vital .label {
+  font-size: 1.2rem;
+}
+
+.patient-devices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.device-tag {
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Decisions Panel */
+.decisions-panel {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.scenario-info h3 {
+  color: var(--danger);
+  margin-bottom: 10px;
+}
+
+.scenario-info p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.decision-options {
+  background: rgba(255, 46, 99, 0.1);
+  border: 2px solid var(--danger);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.decision-options h3 {
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.decision-options .btn {
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  padding: 15px;
+}
+
+.decisions-log {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.decisions-log h3 {
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.log-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.log-entry {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 3px solid var(--primary);
+}
+
+.log-time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 10px;
+}
+
+.log-action {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.log-consequences {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.log-consequences .good {
+  color: var(--success);
+  font-size: 0.9rem;
+}
+
+.log-consequences .bad {
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.empty-log {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Game Over Modal */
+.game-over-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.game-over-content {
+  background: linear-gradient(135deg, #1a1a3a 0%, #25254a 100%);
+  border: 3px solid var(--primary);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.game-over-content h2 {
+  color: var(--primary);
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.final-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.final-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.final-stat .label {
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.final-stat .value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.final-stat .value.score {
+  color: var(--success);
+  font-size: 2rem;
+}
+
+.final-badge {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 15px;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+.game-over-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.game-over-actions .btn {
+  min-width: 200px;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .game-over-content {
+    padding: 20px;
+  }
+  
+  .game-over-content h2 {
+    font-size: 2rem;
+  }
+  
+  .game-over-actions {
+    flex-direction: column;
+  }
+  
+  .game-over-actions .btn {
+    min-width: auto;
+    width: 100%;
+  }
+}

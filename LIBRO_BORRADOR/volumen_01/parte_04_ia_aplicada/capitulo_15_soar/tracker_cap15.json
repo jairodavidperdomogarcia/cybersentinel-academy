@@ -1,0 +1,11 @@
+{
+    "completed_playbooks": [
+        "DEFENSA_PERIMETRO_01",
+        "PHISHING_RESPONSE_01",
+        "RANSOMWARE_INCIDENT_01",
+        "INVESTIGACION_IA_01",
+        "RESPUESTA_INTRUSION_FISICA_01"
+    ],
+    "score": 100,
+    "last_update": "Just now"
+}

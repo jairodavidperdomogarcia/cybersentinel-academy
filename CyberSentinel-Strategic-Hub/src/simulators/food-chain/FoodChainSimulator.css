@@ -1,0 +1,249 @@
+﻿/* FoodChainSimulator.css - Estilos para simulador de cadena de comida rápida */
+
+/* Animaciones */
+@keyframes pulse-danger {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 153, 0, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(255, 153, 0, 0.8); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Clases utilitarias */
+.contaminated {
+  animation: pulse-danger 1s infinite;
+}
+
+.glow-effect {
+  animation: glow 2s infinite;
+}
+
+.decision-feedback {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.scenario-transition {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+  }
+  
+  .decision-buttons {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .header-content {
+    flex-direction: column !important;
+    gap: 15px !important;
+    text-align: center !important;
+  }
+  
+  .timer-display {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .stat-card {
+    padding: 15px !important;
+  }
+  
+  .scenario-title {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Estilos para scroll personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff9900;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cc7a00;
+}
+
+/* Transiciones para hover */
+.stat-card, .decision-button, .scenario-card {
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para texto seleccionado */
+::selection {
+  background: rgba(255, 153, 0, 0.3);
+  color: white;
+}
+
+/* Estilos para inputs y botones deshabilitados */
+button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+button:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Efectos para game over */
+.game-over-content {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.game-over-content h2 {
+  text-shadow: 0 0 10px rgba(255, 153, 0, 0.5);
+}
+
+/* Estilos para alertas y notificaciones */
+.alert-success {
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 204, 122, 0.1));
+  border: 1px solid #00ff9d;
+  color: #00ff9d;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, rgba(255, 46, 99, 0.1), rgba(204, 0, 80, 0.1));
+  border: 1px solid #ff2e63;
+  color: #ff2e63;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, rgba(255, 153, 0, 0.1), rgba(204, 122, 0, 0.1));
+  border: 1px solid #ff9900;
+  color: #ff9900;
+}
+
+/* Tooltips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #1a0f0f;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid #ff9900;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Estilos para loading */
+.loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #ff9900;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Gradientes personalizados */
+.gradient-primary {
+  background: linear-gradient(135deg, #ff9900, #ff6b00);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #ff2e63, #cc0050);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #00ff9d, #00cc7a);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #9d4edd, #6a2ca8);
+}
+
+/* Sombras */
+.shadow-soft {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-medium {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-hard {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Bordes */
+.border-glow {
+  border: 2px solid transparent;
+  background: linear-gradient(#1a0f0f, #1a0f0f) padding-box,
+              linear-gradient(135deg, #ff9900, #ff2e63) border-box;
+  border-radius: 10px;
+}
+
+/* Efectos de texto */
+.text-glow {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #ff9900, #ff2e63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberEcosystem | Infraestructura Digital Global</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    
+    <!-- Three.js (CDN for Globe) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Navegación principal">
+        <div class="container">
+            <a href="#" class="nav-brand">
+                <span class="brand-icon">🛡️</span> CyberEcosystem
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Inicio</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">CyberEcosystem</a>
+                    <div class="dropdown-content">
+                        <a href="glosario.html">Glosario de Términos</a>
+                        <a href="guias.html">Guías de Autoprotección</a>
+                        <a href="libreria.html">Biblioteca (Libros)</a>
+                        <a href="videoteca.html">Videoteca</a>
+                        <a href="software.html">Software Recomendado</a>
+                        <a href="hardware.html">Hardware Recomendado</a>
+                    </div>
+                </div>
+                <a href="academia.html" class="nav-link btn btn-secondary">CyberSentinel Academy</a>
+            </div>
+            <div class="mobile-toggle">☰</div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg">
+            <!-- 3D Globe Container -->
+            <div id="globe-container"></div>
+            
+            <!-- Left Shield (Symmetric) -->
+            <div class="sentinel-shield sentinel-shield--left"></div>
+            
+            <!-- Right Shield -->
+            <div class="sentinel-shield"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">El Ecosistema Global de <span class="text-gradient">Ciberseguridad</span></h1>
+            <p class="hero-subtitle">Conectamos talento, empresas y sociedad en la defensa digital</p>
+            
+            <div class="search-container">
+                <span style="font-size: 1.2rem; display: flex; align-items: center;">🔍</span>
+                <input type="text" class="search-input" placeholder="¿Qué necesitas hoy? (empleo, experto, curso, alerta...)">
+                <button class="btn btn-primary">BUSCAR</button>
+            </div>
+        </div>
+
+        <div class="hero-ticker">
+            <div class="container">
+                <span id="threat-level" class="threat-level" style="color: var(--status-success);">🟢 Nivel de amenaza global: BAJO</span>
+                <span style="margin: 0 15px; color: rgba(255,255,255,0.2);">|</span>
+                <span id="last-alert" class="last-alert">Última alerta: Phishing masivo detectado targeting bancos españoles (hace 2h)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Status Bar -->
+    <section class="status-bar">
+        <div class="container">
+            <div class="status-grid">
+                <div class="status-item" data-tooltip="Usuarios verificados en la plataforma">
+                    <span class="status-number" id="live-experts">24,589</span>
+                    <span class="status-label">🔐 Expertos Activos</span>
+                </div>
+                <div class="status-item" data-tooltip="Posiciones disponibles globalmente">
+                    <span class="status-number" id="live-jobs">1,247</span>
+                    <span class="status-label">💼 Ofertas Abiertas</span>
+                </div>
+                <div class="status-item" data-tooltip="Organizaciones contratando o protegiéndose">
+                    <span class="status-number" id="live-companies">892</span>
+                    <span class="status-label">🏢 Empresas Registradas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Ecosystem Pillars -->
+    <section class="ecosystem" id="ecosystem">
+        <div class="container">
+            <div class="section-title">
+                <h2>Un ecosistema completo</h2>
+                <p>Más que una herramienta, una infraestructura de defensa.</p>
+            </div>
+
+            <div class="grid-pillars">
+                <!-- Academy (Featured) -->
+                <div class="pillar-card card-academy">
+                    <div class="card-icon">🛡️</div>
+                    <h3>CyberSentinel Academy</h3>
+                    <p>El núcleo formativo de élite. Simuladores de grado militar y certificación práctica.</p>
+                    <div style="margin-bottom: 15px; color: #FFC107; font-size: 0.9rem;">★★★★★ 4.9/5 (2,347 reseñas)</div>
+                    <a href="cybersentinel/index.html" class="btn btn-primary">ACCEDER AL ENTRENAMIENTO</a>
+                </div>
+
+                <!-- Mercado -->
+                <div class="pillar-card" id="mercado">
+                    <div class="card-icon">🏢</div>
+                    <h3>Mercado</h3>
+                    <p>Servicios y soluciones de seguridad verificadas para tu empresa.</p>
+                    <a href="#" class="link-action">Explorar Marketplace →</a>
+                </div>
+
+                <!-- Talento -->
+                <div class="pillar-card" id="empleo">
+                    <div class="card-icon">💼</div>
+                    <h3>Talento</h3>
+                    <p>Encuentra tu próximo desafío o contrata a los mejores analistas.</p>
+                    <a href="#" class="link-action">Ver ofertas de empleo →</a>
+                </div>
+
+                <!-- Voz Social -->
+                <div class="pillar-card" id="noticias">
+                    <div class="card-icon">📢</div>
+                    <h3>Voz Social</h3>
+                    <p>Noticias, entrevistas y conciencia ciudadana sobre riesgos digitales.</p>
+                    <a href="#" class="link-action">Leer noticias →</a>
+                </div>
+
+                <!-- Crisis Monitor -->
+                <div class="pillar-card" id="crisis">
+                    <div class="card-icon">🌍</div>
+                    <h3>Crisis Monitor</h3>
+                    <p>Visualización de riesgos globales y escenarios hipotéticos en tiempo real.</p>
+                    <a href="#" class="link-action">Ver monitor de crisis →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Impacto en Tiempo Real</h2>
+                <p>El pulso del ecosistema digital.</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-widget">
+                    <span class="dot"></span>
+                    <strong>5,280</strong> simulaciones hoy
+                </div>
+                <div class="impact-widget">
+                    <span class="dot"></span>
+                    <strong>123</strong> contrataciones esta semana
+                </div>
+                <div class="impact-widget">
+                    <span class="dot" style="background: var(--status-warning);"></span>
+                    <strong>47</strong> alertas activas
+                </div>
+                <div class="impact-widget">
+                    <span class="dot"></span>
+                    <strong>89</strong> empresas buscando
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who is this for -->
+    <section class="who-section">
+        <div class="container">
+            <div class="who-grid">
+                <div class="who-card">
+                    <div class="who-icon">👤</div>
+                    <h3>Ciudadano</h3>
+                    <p>Mantente seguro con alertas de fraude y guías de higiene digital.</p>
+                </div>
+                <div class="who-card">
+                    <div class="who-icon">🏢</div>
+                    <h3>Empresa</h3>
+                    <p>Encuentra talento verificado y soluciones de protección.</p>
+                </div>
+                <div class="who-card">
+                    <div class="who-icon">👨‍💻</div>
+                    <h3>Profesional</h3>
+                    <p>Fórmate en simuladores reales y accede a empleos globales.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <h3 style="margin-bottom: 20px;">¿Listo para ser parte del ecosistema?</h3>
+                <a href="#" class="btn btn-outline">EXPLORAR MAPA COMPLETO</a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>🛡️ CyberEcosystem</h3>
+                    <p>Infraestructura digital para un mundo más seguro.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Plataforma</h4>
+                    <ul>
+                        <li><a href="#">Mercado de Servicios</a></li>
+                        <li><a href="#">Hub de Talento</a></li>
+                        <li><a href="cybersentinel/index.html">CyberSentinel Academy</a></li>
+                        <li><a href="#">Crisis Monitor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Estadísticas Globales</a></li>
+                        <li><a href="#">Informes de Amenazas</a></li>
+                        <li><a href="#">Guías Gratuitas</a></li>
+                        <li><a href="#">API Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Conecta</h4>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Twitter / X</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Certificados Visuales -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; opacity: 0.6; font-size: 0.8rem; flex-wrap: wrap;">
+                <span style="display: flex; align-items: center; gap: 5px;">🔒 HTTPS Secured</span>
+                <span style="display: flex; align-items: center; gap: 5px;">🛡️ Zero Trust Arch</span>
+                <span style="display: flex; align-items: center; gap: 5px;">✅ GDPR Compliant</span>
+                <span style="display: flex; align-items: center; gap: 5px;">⚡ Load time: &lt;1.5s</span>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 CyberEcosystem. Todos los derechos reservados.</div>
+                <div>Nivel de amenaza actual: <span style="color: var(--status-success);">🟢 BAJO</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/globe.js"></script>
+    <script src="js/main.js?v=1.1"></script>
+</body>
+</html>
