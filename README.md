@@ -74,3 +74,5 @@ La ciberseguridad moderna es: **Pensamiento Estratégico + Simulación + Adaptac
 
 ---
 *Bienvenido a la academia donde los sistemas están vivos y la seguridad es una batalla de inteligencias.*
+                                                                                                                                                                                                                                                                                                                                                                       
+          
