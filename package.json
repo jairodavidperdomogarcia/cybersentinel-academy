@@ -1,9 +1,9 @@
 {
-  "name": "cybersentinel-academy",
+  "name": "package.json",
   "version": "1.0.0",
   "description": "Plataforma integral de CyberSentinel Academy",
   "scripts": {
-    "build": "cd CyberSentinel-Strategic-Hub && npm install && npm run build && cd .. && xcopy /s /e /y CyberSentinel-Strategic-Hub\\build\\* WEB_PLATFORM\\cybersentinel\\modules\\hub"
+    "build": "cd CyberSentinel-Strategic-Hub && npm install && npm run build"
   },
   "author": "",
   "license": "ISC"
