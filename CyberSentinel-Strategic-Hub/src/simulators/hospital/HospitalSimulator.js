@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './HospitalSimulator.css';
 
 import { useSimulations } from '../../context/SimulationContext';
@@ -29,7 +29,15 @@ const HospitalSimulator = () => {
     setIsRunning(true);
   }, []);
 
-  // Timer
+  const endSimulation = useCallback(() => {
+    setIsRunning(false);
+    setGameOver(true);
+    
+    const patientsAlive = patients.filter(p => p.status === 'vivo').length;
+    const finalScore = score + (patientsAlive * 100);
+    setScore(finalScore);
+  }, [patients, score]);
+
   useEffect(() => {
     let timer;
     if (isRunning && time > 0 && !gameOver) {
@@ -44,7 +52,7 @@ const HospitalSimulator = () => {
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [isRunning, time, gameOver]);
+  }, [isRunning, time, gameOver, endSimulation]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -107,16 +115,6 @@ const HospitalSimulator = () => {
 
     setPatients(updatedPatients);
     setScore(newScore);
-  };
-
-  const endSimulation = () => {
-    setIsRunning(false);
-    setGameOver(true);
-    
-    // Calcular score final
-    const patientsAlive = patients.filter(p => p.status === 'vivo').length;
-    const finalScore = score + (patientsAlive * 100);
-    setScore(finalScore);
   };
 
   const restartSimulation = () => {
