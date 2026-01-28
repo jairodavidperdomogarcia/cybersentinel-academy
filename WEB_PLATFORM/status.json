@@ -1,0 +1,12 @@
+{
+  "threat_level": "BAJO",
+  "threat_emoji": "🟢",
+  "last_alert": "Phishing masivo detectado targeting bancos españoles",
+  "last_alert_time": "hace 2h",
+  "kpis": {
+    "experts_active": 24589,
+    "offers_open": 1247,
+    "companies_registered": 892
+  },
+  "updated_at": "2026-01-22T18:20:00Z"
+}

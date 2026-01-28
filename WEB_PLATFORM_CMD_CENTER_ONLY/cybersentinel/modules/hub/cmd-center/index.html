@@ -1,0 +1,2287 @@
+<!--
+   Opción A (Escudo):
+      🔒
+     🔐🔐
+    🔒🔒🔒
+   CYBERSENTINEL
+
+   Opción B (Terminal):
+     ╔══════════╗
+     ║ >_       ║
+     ╚══════════╝
+     COMMAND_CENTER
+
+   Opción C (Minimalista):
+     C⟩S
+     CyberSentinel
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSentinel // Command Center</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        /* Variables CSS Globales para consistencia */
+        :root {
+            /* Colores Base */
+            --bg-color: #0a0a1a;        /* Azul muy oscuro para fondo */
+            --card-bg: #1a1a2e;         /* Azul oscuro para tarjetas */
+            --text-color: #e0e0e0;      /* Gris claro para texto (WCAG AA) */
+            --secondary-text: #a0a0b0;  /* Gris medio para subtítulos */
+            
+            /* Colores de Acento CyberSentinel */
+            --cybersentinel-primary: #00ffff;   /* Cyan Neón */
+            --cybersentinel-secondary: #00ff00; /* Verde Hacker */
+            --danger-color: #ff3366;            /* Rojo Alerta */
+            
+            /* Tipografía */
+            --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+            --font-sans: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Reset y Base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            /* Fondo sutil */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 20%);
+        }
+
+        /* Accesibilidad: Ajustes para Prefers Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* CSS PARA LAS ALERTAS */
+        .alert {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: var(--font-mono);
+            border: 1px solid;
+            font-size: 0.9rem;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .alert-danger {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            color: #ff9999;
+        }
+
+        .alert-warning {
+            background: rgba(255, 255, 0, 0.1);
+            border-color: #ffff00;
+            color: #ffff99;
+        }
+
+        /* Scanline effect (Optimizado para móvil: deshabilitado o reducido) */
+        @media (min-width: 769px) {
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+                pointer-events: none;
+                z-index: 100;
+                opacity: 0.5;
+            }
+        }
+
+        /* Header estilo terminal (Top Bar) */
+        .command-header {
+            background: rgba(10, 10, 26, 0.95);
+            border-bottom: 1px solid var(--cybersentinel-primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-indicator.online {
+            background: var(--cybersentinel-secondary);
+            box-shadow: 0 0 10px var(--cybersentinel-secondary);
+        }
+
+        .system-id {
+            color: var(--cybersentinel-primary);
+            font-weight: bold;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Responsive Nav: Hide on small screens or adjust */
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+            .command-header { padding: 1rem; }
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            border-color: var(--cybersentinel-primary);
+            color: var(--cybersentinel-primary);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        #terminalTime {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section (antiguo header) */
+        .hero-section {
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        h1 {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            color: var(--cybersentinel-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.4); 
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--secondary-text);
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        /* Navigation Button */
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            font-family: var(--font-mono);
+        }
+
+        .nav-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--cybersentinel-primary);
+            transform: translateX(-5px);
+        }
+
+        /* Terminal Fake */
+        .terminal-window {
+            background: #000;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            border: 1px solid #333;
+            overflow: hidden;
+            font-family: var(--font-mono);
+        }
+
+        .terminal-header {
+            background: #222;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-title {
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .terminal-body {
+            padding: 15px;
+            color: #ccc;
+            font-size: 0.9rem;
+            min-height: 120px;
+        }
+
+        .prompt { color: var(--cybersentinel-secondary); }
+        .command { color: #fff; }
+        .output { color: var(--cybersentinel-primary); margin-bottom: 15px; display: block; }
+        
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--cybersentinel-secondary);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 769px) {
+            .card:hover {
+                transform: translateY(-5px);
+                border-color: var(--cybersentinel-primary);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cybersentinel-primary), transparent);
+            opacity: 0.5;
+        }
+
+        .card.warning {
+            border-color: rgba(255, 51, 102, 0.3);
+        }
+        .card.warning:hover {
+            border-color: var(--danger-color);
+        }
+        .card.warning h2 { color: var(--danger-color); }
+
+        .card h2 {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* Links List */
+        .resource-list {
+            list-style: none;
+        }
+
+        .resource-list li {
+            margin-bottom: 12px;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            color: var(--cybersentinel-primary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .resource-link:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--cybersentinel-primary);
+            padding-left: 20px;
+        }
+
+        .btn-action {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-action:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px rgba(0, 180, 219, 0.4);
+        }
+
+        /* Footer estilo técnico */
+        .command-footer {
+            background: #0a0a1a;
+            border-top: 1px solid #333;
+            margin-top: 3rem;
+            padding: 2rem;
+            font-family: var(--font-mono);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--cybersentinel-primary);
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .footer-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .footer-arrow {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            margin-left: 0.5rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--secondary-text);
+            margin: 0.5rem 0;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--cybersentinel-primary);
+        }
+        
+        .footer-section p {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            border-top: 1px solid #222;
+            padding-top: 1rem;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--secondary-text);
+            color: var(--secondary-text);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--cybersentinel-primary);
+            color: var(--cybersentinel-primary);
+        }
+
+        /* Hash Verifier Styles */
+        .hash-verifier input::placeholder { color: #888; }
+        .hash-result { padding: 10px; border-radius: 4px; margin-top: 10px; display: none; }
+        .hidden { display: none; }
+
+        /* Mission Log Styles */
+        .mission-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .mission-table th {
+            text-align: left;
+            padding: 10px;
+            color: var(--secondary-text);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .mission-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            vertical-align: middle;
+        }
+        .mission-select {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-color);
+            padding: 5px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mission-select:hover {
+            border-color: var(--cybersentinel-primary);
+        }
+        .mission-select option {
+            background: #1a1a2e;
+        }
+        /* Status Colors in Select */
+        .mission-select[data-status="completed"], 
+        .mission-select[data-status="approved"],
+        .mission-select[data-status="submitted"] { color: var(--cybersentinel-secondary); border-color: var(--cybersentinel-secondary); }
+        .mission-select[data-status="in_progress"] { color: #ffbd2e; border-color: #ffbd2e; }
+        .mission-select[data-status="pending"] { color: #ff5f56; border-color: #ff5f56; }
+        
+        /* Reward Badge Styles - Wall of Fame */
+        .wall-of-fame {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 153, 0.2);
+            border-radius: 8px;
+            min-height: 150px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .phase-card {
+            background: rgba(10, 20, 30, 0.8);
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .phase-card.locked {
+            opacity: 0.75;
+            filter: grayscale(90%);
+            border-style: dashed;
+            background: rgba(10, 10, 15, 0.6);
+        }
+
+        .phase-card.active {
+            border-color: var(--cybersentinel-secondary);
+            box-shadow: 0 0 10px rgba(0, 255, 153, 0.1);
+        }
+        
+        .phase-card.completed {
+            border-color: #00ff99;
+            background: linear-gradient(135deg, rgba(0, 255, 153, 0.05), rgba(0, 20, 40, 0.9));
+        }
+
+        .phase-header {
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+        }
+
+        .phase-card.completed .phase-header {
+            color: #00ff99;
+            border-bottom-color: rgba(0, 255, 153, 0.3);
+        }
+
+        .phase-insignia-main {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+        }
+        
+        .phase-card.completed .phase-insignia-main {
+            filter: drop-shadow(0 0 8px rgba(0, 255, 153, 0.6));
+        }
+
+        .phase-sub-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px;
+            margin: 10px 0;
+        }
+
+        .sub-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-family: var(--font-mono);
+            min-width: 30px;
+            text-align: center;
+            cursor: help;
+            transition: all 0.2s ease;
+        }
+        .sub-badge.earned {
+            background: rgba(0, 255, 153, 0.1);
+            border-color: #00ff99;
+            color: #00ff99;
+            box-shadow: 0 0 5px rgba(0, 255, 153, 0.2);
+            font-weight: bold;
+        }
+        .sub-badge.pending {
+            color: #aaa;
+        }
+        .sub-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .phase-progress {
+            font-size: 0.75rem;
+            color: var(--secondary-text);
+            margin-top: auto;
+            font-family: var(--font-mono);
+        }
+
+        /* Dossier Modal */
+        .dossier-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .dossier-modal {
+            background: #0a0a1a;
+            border: 2px solid var(--cybersentinel-primary);
+            width: 80%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .dossier-header {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 20px;
+            border-bottom: 1px solid var(--cybersentinel-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dossier-title {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--cybersentinel-primary);
+            text-transform: uppercase;
+        }
+        .dossier-close {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .dossier-content {
+            padding: 30px;
+            font-family: var(--font-sans);
+        }
+        .dossier-section {
+            margin-bottom: 25px;
+        }
+        .dossier-section h3 {
+            color: var(--secondary-text);
+            font-family: var(--font-mono);
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .dossier-list {
+            list-style: none;
+        }
+        .dossier-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .dossier-list li::before {
+            content: ">>";
+            position: absolute;
+            left: 0;
+            color: var(--cybersentinel-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER DE NAVEGACIÓN -->
+    <header class="command-header">
+        <div class="header-left">
+            <span class="status-indicator online"></span>
+            <span class="system-id">CYBERSENTINEL_CC://v1.0</span>
+        </div>
+        <nav class="header-nav">
+            <a href="#" class="nav-link active">⌘ COMMAND_CENTER</a>
+            <a href="manual/CyberSentinel_Manual_Completo.html?v=1.4" class="nav-link">📚 MANUAL_TÁCTICO</a>
+            <!-- Deployment-Ready Relative Link -->
+            <a href="modules/hub/index.html" class="nav-link" target="_blank" rel="noopener noreferrer">🧠 HUB_ESTRATÉGICO</a>
+            <a href="#" class="nav-link">🧪 LABS_PRÁCTICOS</a>
+            <a href="#" class="nav-link">👥 RED_OPERATIVA</a>
+        </nav>
+        <div class="header-right">
+            <span id="utcTime" style="font-family: var(--font-mono); color: var(--secondary-text); font-size: 0.9rem;">[00:00:00 UTC]</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- HERO SECTION (BRANDING) -->
+        <div class="hero-section">
+            <div class="logo-container">
+                <!-- SVG Logo Integrado -->
+                <img src="assets/logo.svg" alt="CyberSentinel Logo" height="80" class="logo-img">
+                <div>
+                    <h1>CyberSentinel</h1>
+                    <p class="subtitle">Command Center // v1.0</p>
+                </div>
+            </div>
+            <!-- Status Badge removed here as it is in the top bar now, or we can keep a different one -->
+        </div>
+
+        <a href="manual/CyberSentinel_Manual_Completo.html?v=1.5" class="nav-back">
+            <span>&larr; REGRESAR AL LIBRO (MISION)</span>
+        </a>
+
+        <div id="view-command-center">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">student@cybersentinel:~</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal" id="mainTerminal">
+                        student@cybersentinel:~$ <span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2 class="card-toggle" data-target="ccIntroBody">
+                        🌍 CYBERSENTINEL: NODO GLOBAL
+                        <span class="card-toggle-arrow">˄</span>
+                    </h2>
+                    <div id="ccIntroBody">
+                        <p style="color: var(--secondary-text); font-size: 0.9rem; margin-bottom: 0.75rem;">
+                            <strong>CYBERSENTINEL: EL SISTEMA DE DEFENSA PLANETARIO.</strong><br>
+                            No estás aquí para estudiar. Estás aquí para defender. Este nodo es parte de una red global de élite diseñada para proteger la infraestructura crítica de la humanidad.
+                        </p>
+                        <p style="color: var(--secondary-text); font-size: 0.9rem; margin-bottom: 0.75rem;">
+                            <strong>TU MISIÓN:</strong> Convertirte en el escudo invisible. Mientras el mundo duerme, tú vigilas. Cuando los sistemas fallan, tú respondes.
+                        </p>
+                        <p style="color: var(--secondary-text); font-size: 0.9rem; margin-bottom: 0.75rem;">
+                            1) <strong>Acceso Global:</strong> Despliega este Command Center en cualquier dispositivo. Tu puesto de combate está donde tú estés.<br>
+                            2) <strong>Simulación de Crisis:</strong> Entrena con fuego real en el War Room y el Specialized Dome.<br>
+                            3) <strong>Código de Honor:</strong> Somos la barrera entre el caos y la civilización. Protegemos al débil, aseguramos el futuro.
+                        </p>
+                        <p style="color: var(--cybersentinel-primary); font-size: 0.9rem; border-left: 2px solid var(--cybersentinel-primary); padding-left: 10px;">
+                            "Para ganar la guerra digital, no necesitas un libro de texto. Necesitas un Centro de Mando." <br>
+                            <em>Bienvenido a la Resistencia Global.</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2 class="card-toggle" data-target="ccGuideBody">
+                        🧭 Guía rápida del Command Center
+                        <span class="card-toggle-arrow">˄</span>
+                    </h2>
+                    <div id="ccGuideBody">
+                        <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                            1) Barra superior: muestra el estado del sistema, la hora UTC y los accesos a <strong>Command Center</strong>, <strong>Manual Táctico</strong> y otros módulos.<br>
+                            2) Ventana de terminal: es decorativa, simula comandos para recordarte que estás en un nodo táctico, pero no ejecuta órdenes reales tuyas.<br>
+                            3) Log de Misiones: aquí llevas tu registro manual de capítulos, labs e informes. Es tu bitácora oficial.<br>
+                            4) Análisis de Rendimiento Táctico: esta sección lee tus autoevaluaciones y el Log de Misiones para calcular habilidades dominadas, focos de refuerzo y siguiente objetivo.<br>
+                            5) Programa de Práctica Recomendada: sugiere qué laboratorios e informes atacar hoy según tu bitácora.<br>
+                            6) Estado del Manual: muestra la salud y versión del Volumen 1 y te lleva al changelog.<br>
+                            7) Arsenal: acceso a descargas oficiales y verificador de hashes para operar en modo Zero Trust.<br>
+                            8) Canal de Soporte: correos de contacto para bugs, erratas y ayuda técnica.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2>🎯 Log de Misiones</h2>
+                    <p>Actualiza manualmente el estado de tus operaciones. El control es tuyo.</p>
+                    <div class="alert alert-warning">
+                        <strong>Cómo usarlo:</strong><br>
+                        1) Después de trabajar un capítulo y su laboratorio, revisa primero tu tablero de barras en el manual (Cap 06).<br>
+                        2) Si estás conforme con tu nivel (no sólo lo “leíste”, sino que podrías explicarlo), aquí marcas la misión como <em>EN PROGRESO</em> o <em>COMPLETADO</em> y el lab como <em>APROBADO</em> cuando cierres el informe.<br>
+                        3) Este registro no se llena solo: es tu bitácora oficial de campaña. Lo que marques aquí es lo que el Command Center usará para calcular tu siguiente objetivo.
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="mission-table" id="missionTable">
+                            <thead>
+                                <tr>
+                                    <th>Misión (Capítulo)</th>
+                                    <th>Estado General</th>
+                                    <th>Laboratorio</th>
+                                    <th>Informe Táctico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1; border-color: var(--cybersentinel-primary);">
+                    <h2>🧠 Análisis de Rendimiento Táctico</h2>
+                    <p>Inteligencia derivada de tus autoevaluaciones y progreso.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        
+                        <div style="background: rgba(0, 255, 0, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(0, 255, 0, 0.2);">
+                            <h3 style="color: var(--cybersentinel-secondary); font-family: var(--font-mono); margin-bottom: 10px; font-size: 1rem;">✅ HABILIDADES DOMINADAS</h3>
+                            <div id="masteryList" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <span style="color: #666; font-size: 0.9rem; font-style: italic;">Sin datos suficientes...</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255, 51, 102, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 51, 102, 0.3);">
+                            <h3 style="color: var(--danger-color); font-family: var(--font-mono); margin-bottom: 10px; font-size: 1rem;">📚 RECOMENDACIÓN DE REFUERZO</h3>
+                            <ul id="focusList" style="list-style: none; font-size: 0.9rem; color: #ffcccc;">
+                                <li style="color: #666; font-style: italic;">Sin alertas críticas...</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: rgba(0, 255, 255, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.2);">
+                        <h3 style="color: var(--cybersentinel-primary); font-family: var(--font-mono); margin-bottom: 10px; font-size: 1rem;">🚀 SIGUIENTE OBJETIVO</h3>
+                        <div id="nextObjective" style="text-align: center; padding: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 5px;">🏁</div>
+                            <strong style="font-size: 1.1rem; display: block; color: #fff;" id="nextMissionTitle">Calculando...</strong>
+                            <p style="font-size: 0.85rem; color: #aaa; margin-top: 5px;" id="nextMissionReason">Analizando ruta...</p>
+                            <a href="manual/CyberSentinel_Manual_Completo.html?v=1.6" class="btn-action" style="margin-top: 15px; display: inline-block; font-size: 0.8rem;">IR AL MANUAL</a>
+                            <!-- Access to simulators if deployed -->
+                            <div style="margin-top: 10px; font-size: 0.7rem; color: #666;">
+                                <a href="modules/war-room/index.html" target="_blank" style="color: #666; margin-right: 5px;">WAR ROOM</a> | 
+                                <a href="modules/dome/index.html" target="_blank" style="color: #666; margin-left: 5px;">DOME</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="card" id="grcPanelCard" style="grid-column: 1 / -1; border-color: var(--cybersentinel-secondary);">
+                    <h2>📈 Panel GRC – Datos Reales del Auditor</h2>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Usa el resultado de <code>compliance_auditor.py</code> para poblar tu dashboard ejecutivo. Pega aquí el contenido de <code>compliance_report.json</code> y verás un resumen listo para tu artefacto ejecutivo del Capítulo 16.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; align-items: stretch;">
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 6px;">Entrada</p>
+                            <textarea id="grcAuditInput" style="width: 100%; min-height: 160px; resize: vertical; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,255,255,0.2); color: #fff; padding: 10px; font-family: var(--font-mono); font-size: 0.8rem; border-radius: 6px;"></textarea>
+                            <button id="grcAuditLoadBtn" class="btn-action" style="margin-top: 10px; font-size: 0.8rem;">CARGAR DATOS DEL AUDITOR</button>
+                            <p id="grcAuditError" style="margin-top: 8px; font-size: 0.8rem; color: #ff6666; display: none;"></p>
+                            <p style="margin-top: 6px; font-size: 0.75rem; color: var(--secondary-text);">
+                                Tip: copia el contenido completo de <code>compliance_report.json</code> generado en tu emulador o máquina Linux.
+                            </p>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.35); border-radius: 8px; padding: 12px; border: 1px solid rgba(0,255,153,0.25);">
+                            <p style="font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 10px;">Resumen Ejecutivo (Capítulo 16)</p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+                                <div style="background: rgba(0,255,153,0.06); border-radius: 6px; padding: 8px; border: 1px solid rgba(0,255,153,0.35);">
+                                    <div style="font-size: 0.75rem; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.05em;">Puntuación de Cumplimiento</div>
+                                    <div id="grcScore" style="font-family: var(--font-mono); font-size: 1.2rem; margin-top: 4px;">–/100</div>
+                                </div>
+                                <div style="background: rgba(255,255,0,0.06); border-radius: 6px; padding: 8px; border: 1px solid rgba(255,255,0,0.35);">
+                                    <div style="font-size: 0.75rem; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.05em;">ALE (Pérdida Anual Esperada)</div>
+                                    <div id="grcAle" style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 4px;">–</div>
+                                </div>
+                                <div style="background: rgba(0,255,255,0.06); border-radius: 6px; padding: 8px; border: 1px solid rgba(0,255,255,0.35);">
+                                    <div style="font-size: 0.75rem; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.05em;">ROI Actual de Automatización</div>
+                                    <div id="grcRoi" style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 4px; color: #ff6666;">–</div>
+                                </div>
+                                <div style="background: rgba(255,102,204,0.06); border-radius: 6px; padding: 8px; border: 1px solid rgba(255,102,204,0.35);">
+                                    <div style="font-size: 0.75rem; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.05em;">Horas de Inactividad (Downtime)</div>
+                                    <div id="grcDowntime" style="font-family: var(--font-mono); font-size: 1.1rem; margin-top: 4px;">–</div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.8rem; color: var(--secondary-text);">
+                                Estos valores encajan directamente con las tablas de tu <strong>Plantilla de Artefacto Ejecutivo</strong> del Capítulo 16.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2>📝 Programa de Práctica Recomendada</h2>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Sugerencias de laboratorios para hoy, basadas en tu Log de Misiones.
+                    </p>
+                    <ul id="practiceList" style="list-style: none; padding-left: 0; font-size: 0.9rem;">
+                        <li style="color: #666; font-style: italic;">Actualiza primero tu Log de Misiones para ver recomendaciones.</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-size: 0.8rem; color: var(--secondary-text);">
+                        Tip: no avances de capítulo si el laboratorio anterior sigue en rojo. Repite hasta que puedas explicarlo a otra persona.
+                    </p>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2>🎖️ Hangar de Recompensas</h2>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Visualiza las insignias que has desbloqueado y el acceso a archivos clasificados según tu progreso.
+                    </p>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Nivel actual de acceso: <strong id="accessLevelLabel">Recluta – Sin misiones completadas</strong>
+                    </p>
+                    <div style="margin-top: 25px;">
+                        <h3 style="color: var(--cybersentinel-secondary); font-family: var(--font-mono); font-size: 0.9rem; border-bottom: 1px solid rgba(0, 255, 153, 0.3); padding-bottom: 5px; margin-bottom: 15px;">
+                            🏆 HALL OF FAME (INSIGNIAS ACUMULADAS)
+                        </h3>
+                        <div id="badgeWall" class="wall-of-fame">
+                            <div class="wall-empty">
+                                <span style="font-size: 2rem; opacity: 0.3; margin-bottom: 10px;">🔒</span>
+                                <p style="margin: 0;">Completa fases para desbloquear insignias de honor.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; border-radius: 8px; background: #05050b; border: 1px dashed rgba(255,255,255,0.25);">
+                        <div id="classifiedLocked" style="text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 5px;">🔒</div>
+                            <div style="color: #ff6666; font-family: var(--font-mono); margin-bottom: 5px; letter-spacing: 1px;">ARCHIVO CLASIFICADO</div>
+                            <p style="color: var(--secondary-text); font-size: 0.85rem; margin-bottom: 10px;">
+                                Se requiere Nivel de Acceso 1 para visualizar este contenido.
+                            </p>
+                            <button id="requestDeclassBtn" class="btn-secondary">SOLICITAR DESCLASIFICACIÓN</button>
+                        </div>
+                        <div id="classifiedContent" style="display: none; font-size: 0.85rem; color: var(--secondary-text); text-align: left;">
+                            <p style="color: #00ff99; font-family: var(--font-mono); margin-bottom: 8px;">ACCESO CONCEDIDO // NIVEL 1</p>
+                            <p>
+                                Has completado la primera fase de tu entrenamiento. A partir de aquí, cada bloque de misiones completado suma a tu bitácora de vuelo:
+                            </p>
+                            <ul style="margin-top: 8px; padding-left: 18px;">
+                                <li>Fase 0 – Preparación y Entorno: tu laboratorio es estable y repetible.</li>
+                                <li>Fase 1 – Modelado y Riesgos: puedes explicar amenazas y priorizarlas.</li>
+                                <li>Fase 2 – Defensa Moderna: empiezas a pensar como operador táctico.</li>
+                            </ul>
+                            <p style="margin-top: 8px;">
+                                Usa este panel como registro simbólico de tus hitos. Las insignias no son decoración: marcan las capacidades que podrías demostrar en una entrevista o en un turno real de SOC.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1; border-color: #bf00ff;">
+                    <h2>🧠 Strategic Hub (Simuladores V2)</h2>
+                    <p>Centro de mando estratégico para simulaciones de ecosistemas complejos.</p>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Acceso a simuladores de Cadena Alimenticia, Suministros y Redes Sociales.
+                    </p>
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                        <strong style="color: #ef4444;">⚠ ALERTA ACTIVA:</strong> INFRAESTRUCTURA CRÍTICA (SCADA) - BLACKOUT DETECTADO
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="modules/hub/index.html" target="_blank" class="btn-action" style="background: linear-gradient(45deg, #bf00ff, #aa00cc); box-shadow: 0 0 15px rgba(191, 0, 255, 0.4);">
+                            🚀 INICIAR HUB
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1; border-color: #00ffff;">
+                    <h2>🏰 Specialized Dome (Dashboards 1-3)</h2>
+                    <p>Visualización táctica de dominios especializados (Aéreo, Marítimo, Terrestre).</p>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Entorno de simulación unificado para los primeros tres niveles de visualización. Monitorea activos en tiempo real.
+                    </p>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="modules/dome/index.html" target="_blank" class="btn-action" style="background: linear-gradient(45deg, #00ffff, #0088ff); box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);">
+                            🚀 INICIAR DOME
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1; border-color: #ff3366;">
+                    <h2>🌍 Global War Room (Dashboard 4)</h2>
+                    <p>Acceso directo al Centro de Comando Global para simulación de escenarios catastróficos (Black Sky / Omega / Survival Engine).</p>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Esta sala de guerra opera en un clúster independiente para garantizar la estabilidad del sistema principal durante simulaciones de alta carga.
+                    </p>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="modules/war-room/index.html" target="_blank" class="btn-action" style="background: linear-gradient(45deg, #ff3366, #ff0000); box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);">
+                            🚀 INICIAR WAR ROOM
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Estado del Manual</h2>
+                    <p><strong>Volumen 1:</strong> <span style="color: var(--cybersentinel-secondary)">OPERATIVO</span></p>
+                    <p>Este nodo asegura la persistencia de los enlaces y recursos críticos del manual.</p>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Las <strong>actualizaciones</strong> son cambios al contenido del libro: corrección de erratas,
+                        nuevos laboratorios, mejoras en explicaciones o ajustes de rutas y recursos. El historial completo
+                        de estas modificaciones se registra en la página de cambios (changelog).
+                    </p>
+                    <a href="libro/actualizaciones.html" class="btn-action">Ver actualizaciones del manual</a>
+                </div>
+
+                <div class="card warning">
+                    <h2>⚡ Arsenal (Redirección Segura)</h2>
+                    <p>Acceso directo a binarios oficiales. Verificación de integridad obligatoria antes de desplegar.</p>
+                    <ul class="resource-list">
+                        <li><a href="DEPLOY_GLOBAL.md" class="resource-link" target="_blank" style="border-color: var(--cybersentinel-secondary); color: var(--cybersentinel-secondary);">🌍 GUÍA DE DESPLIEGUE GLOBAL <span>&nearr;</span></a></li>
+                        <li><a href="herramientas/kali.html" class="resource-link">📥 Kali Linux Image <span>&nearr;</span></a></li>
+                        <li><a href="herramientas/virtualbox.html" class="resource-link">📥 VirtualBox Hypervisor <span>&nearr;</span></a></li>
+                        <li><a href="herramientas/windows10.html" class="resource-link">📥 Win10 Victim Environment <span>&nearr;</span></a></li>
+                        <li><a href="assets/downloads/plantilla_informe_lab01.md" class="resource-link" download>📄 Plantilla Informe Lab 01 <span>&darr;</span></a></li>
+                        <li><a href="assets/downloads/plantilla_informe_lab02.md" class="resource-link" download>📄 Plantilla Informe Lab 02 <span>&darr;</span></a></li>
+                        <li><a href="assets/downloads/plantilla_informe_lab03.md" class="resource-link" download>📄 Plantilla Informe Lab 03 (ML) <span>&darr;</span></a></li>
+                        <li><a href="assets/downloads/plantilla_informe_lab04.md" class="resource-link" download>📄 Plantilla Informe Lab 04 (Threat Model) <span>&darr;</span></a></li>
+                    </ul>
+                    
+                    <div class="hash-verifier" style="margin-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+                        <h3 style="font-size: 0.9rem; color: var(--secondary-text); margin-bottom: 10px; font-family: var(--font-mono);">🔍 VERIFICADOR DE INTEGRIDAD</h3>
+                        <input type="text" placeholder="Pega tu hash SHA256 calculado..." id="hashInput" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.3); border: 1px solid #333; color: #fff; margin-bottom: 10px; font-family: var(--font-mono); border-radius: 4px;">
+                        <div style="display: flex; gap: 10px;">
+                            <select id="toolSelect" style="flex: 1; padding: 8px; background: rgba(0,0,0,0.3); border: 1px solid #333; color: #fff; font-family: var(--font-mono); border-radius: 4px;">
+                                <option value="Kali Linux 2024.1">Kali Linux 2024.1</option>
+                                <option value="VirtualBox 7.0.14">VirtualBox 7.0.14</option>
+                                <option value="Win10 Victim Environment">Windows 10 Victim</option>
+                            </select>
+                            <button id="verifyHashBtn" style="background: var(--cybersentinel-primary); color: #000; border: none; padding: 8px 15px; font-weight: bold; cursor: pointer; border-radius: 4px; font-family: var(--font-mono);">VERIFICAR</button>
+                        </div>
+                        <div id="hashResult" class="hash-result"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1; border-color: #ffd700;">
+                    <h2>🎖️ Protocolo de Asignación (Specialization Clearance)</h2>
+                    <p>Módulo de transición al Volumen 2. Requiere completar Cap 18.</p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
+                        <div class="specialization-card" data-type="kinetic" style="border: 1px solid #333; padding: 10px; border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.3s;" onclick="selectSpecialization('kinetic', this)">
+                            <h4 style="color: #ff3366; margin-bottom: 5px;">KINETIC DEFENDER</h4>
+                            <p style="font-size: 0.8rem; color: #888;">OT / Industrial / SCADA</p>
+                            <button class="btn-secondary" style="margin-top: 10px; font-size: 0.7rem;">SELECCIONAR</button>
+                            <div style="margin-top: 8px; font-size: 0.7rem; color: #fff; opacity: 0.7; text-decoration: underline; cursor: help;" onclick="event.stopPropagation(); showDossier('kinetic')">VER DOSSIER</div>
+                        </div>
+                        <div class="specialization-card" data-type="digital" style="border: 1px solid #333; padding: 10px; border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.3s;" onclick="selectSpecialization('digital', this)">
+                            <h4 style="color: #00ffff; margin-bottom: 5px;">DIGITAL STRATEGIST</h4>
+                            <p style="font-size: 0.8rem; color: #888;">Fintech / Cloud / Fraud</p>
+                            <button class="btn-secondary" style="margin-top: 10px; font-size: 0.7rem;">SELECCIONAR</button>
+                            <div style="margin-top: 8px; font-size: 0.7rem; color: #fff; opacity: 0.7; text-decoration: underline; cursor: help;" onclick="event.stopPropagation(); showDossier('digital')">VER DOSSIER</div>
+                        </div>
+                        <div class="specialization-card" data-type="bio" style="border: 1px solid #333; padding: 10px; border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.3s;" onclick="selectSpecialization('bio', this)">
+                            <h4 style="color: #00ff99; margin-bottom: 5px;">BIO-PROTECTOR</h4>
+                            <p style="font-size: 0.8rem; color: #888;">IoMT / Health / Privacy</p>
+                            <button class="btn-secondary" style="margin-top: 10px; font-size: 0.7rem;">SELECCIONAR</button>
+                            <div style="margin-top: 8px; font-size: 0.7rem; color: #fff; opacity: 0.7; text-decoration: underline; cursor: help;" onclick="event.stopPropagation(); showDossier('bio')">VER DOSSIER</div>
+                        </div>
+                    </div>
+                    <p id="specialization-status" style="font-size: 0.8rem; color: var(--secondary-text); margin-top: 15px; text-align: center;">
+                        *La selección habilitará los módulos de simulación avanzada correspondientes.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2>📡 Canal de Soporte</h2>
+                    <p>Reporte de bugs, erratas en laboratorios o solicitud de asistencia técnica.</p>
+                    <p style="font-family: var(--font-mono); color: var(--cybersentinel-primary); border: 1px dashed rgba(0,255,255,0.3); padding: 10px; text-align: center;">
+                        contacto@cybersentinel.academy
+                    </p>
+                    <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">Tiempo de respuesta: ~48h</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-labs" class="hidden">
+            <div class="dashboard-grid">
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h2>🧪 Labs Prácticos</h2>
+                    <p style="color: var(--secondary-text); font-size: 0.9rem;">
+                        Punto de entrada rápido a los laboratorios principales del Volumen 1. Completa cada lab, redacta tu informe táctico y actualiza el Log de Misiones para que el Command Center pueda recomendarte el siguiente paso.
+                    </p>
+                    <p style="color: var(--secondary-text); font-size: 0.8rem; margin-top: 6px;">
+                        Las plantillas de informe son archivos <code>.md</code> descargables. Después de descargarlas, haz doble clic o clic derecho → “Abrir con” y elige un editor de texto sencillo (por ejemplo <strong>Bloc de notas</strong> en Windows o <strong>VS Code</strong>). Allí podrás rellenar los campos y guardar tu informe localmente.
+                    </p>
+                </div>
+                <div class="card" style="grid-column: 1 / -1;">
+                    <h3 style="font-family: var(--font-mono); font-size: 0.95rem; margin-bottom: 10px;">Catálogo de Labs</h3>
+                    <div style="overflow-x: auto;">
+                        <table class="mission-table">
+                            <thead>
+                                <tr>
+                                    <th>Lab</th>
+                                    <th>Capítulo</th>
+                                    <th>Objetivo</th>
+                                    <th>Accesos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>LAB 01</strong></td>
+                                    <td>Cap 01 – Laboratorio Ético</td>
+                                    <td>Montar un entorno de práctica aislado y repetible.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_01_laboratorio" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab01.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 02</strong></td>
+                                    <td>Cap 02 – Fundamentos Técnicos</td>
+                                    <td>Dominar la terminal y el flujo básico de investigación.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_02_fundamentos_tecnicos" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab02.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 03</strong></td>
+                                    <td>Cap 03 – IA/ML Esencial</td>
+                                    <td>Introducir Machine Learning para detección de anomalías.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_03_ia_ml_vocabulario" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab03.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 04</strong></td>
+                                    <td>Cap 04 – Threat Modeling</td>
+                                    <td>Construir tu primer modelo de amenazas aplicando PASTA.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_04_modelado_amenazas" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab04.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 05</strong></td>
+                                    <td>Cap 05 – Análisis de Riesgos</td>
+                                    <td>Priorizar amenazas con matriz de riesgo cuantitativa.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_05_analisis_riesgos" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab05.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 06</strong></td>
+                                    <td>Cap 06 – Metodología PASTA</td>
+                                    <td>Ejecutar el ciclo completo de modelado de amenazas.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_06_diagramacion" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab06.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 08</strong></td>
+                                    <td>Cap 08 – IDS/IPS Snort</td>
+                                    <td>Configurar reglas de detección y prevención de intrusos.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_08_ids_ips" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab08.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 10</strong></td>
+                                    <td>Cap 10 – ML y Anomalías</td>
+                                    <td>Entrenar modelos de Isolation Forest para detección.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_10_ml_anomalias" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab10.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 11</strong></td>
+                                    <td>Cap 11 – Threat Hunting</td>
+                                    <td>Cazar amenazas ocultas usando todo el pipeline Cap 06–10.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_11_threat_hunting" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab11.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 12</strong></td>
+                                    <td>Cap 12 – Visión Artificial</td>
+                                    <td>Detectar inyecciones en cámaras y manipular video.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_12_vision_computacional" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab12.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 14</strong></td>
+                                    <td>Cap 14 – Python Ops</td>
+                                    <td>Automatizar respuesta a incidentes y análisis forense.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_14_scripting_python" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab14.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 15</strong></td>
+                                    <td>Cap 15 – SOAR Engine</td>
+                                    <td>Orquestar defensa automatizada con Playbooks.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_15_soar" class="resource-link">Guía en el manual</a><br>
+                                        <a href="assets/downloads/plantilla_informe_lab15.md" class="resource-link" download>Plantilla de informe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LAB 16</strong></td>
+                                    <td>Cap 16 – GRC y Ética</td>
+                                    <td>Auditar cumplimiento y preparar el artefacto ejecutivo GRC.</td>
+                                    <td>
+                                        <a href="manual/CyberSentinel_Manual_Completo.html#capitulo_16_grc_etica" class="resource-link">Guía en el manual</a><br>
+                                        <a href="#grcPanelCard" class="resource-link">Panel GRC en Command Center</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.8rem; color: var(--secondary-text);">
+                        Después de cada lab, marca tu avance en el Log de Misiones y actualiza tus trackers en el manual para que el análisis táctico refleje tu progreso real.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER TÉCNICO MEJORADO -->
+        <footer class="command-footer">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-toggle" data-target="footer-help-links">
+                        <span>⛓️ ENLACES CRÍTICOS</span>
+                        <span class="footer-arrow">˅</span>
+                    </h4>
+                    <a href="#">Protocolo de Seguridad</a>
+                    <a href="#">Términos de Operación</a>
+                    <a href="#">Política de Privacidad</a>
+                    <div id="footer-help-links" class="footer-help hidden" style="margin-top:0.5rem; font-size:0.85rem; color:var(--secondary-text);">
+                        Aquí encontrarás documentos base: reglas de juego, términos y políticas que gobiernan el uso de la plataforma.
+                        No son misiones técnicas, pero definen el marco legal y operativo en el que trabajas.
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-toggle" data-target="footer-help-contact">
+                        <span>📡 CANALES DE CONTACTO</span>
+                        <span class="footer-arrow">˅</span>
+                    </h4>
+                    <p>contacto@cybersentinel.academy</p>
+                    <p>soporte@cybersentinel.academy</p>
+                    <p>erratas@cybersentinel.academy</p>
+                    <div id="footer-help-contact" class="footer-help hidden" style="margin-top:0.5rem; font-size:0.85rem; color:var(--secondary-text);">
+                        Usa <strong>contacto@</strong> para dudas generales, <strong>soporte@</strong> para problemas técnicos con la plataforma
+                        y <strong>erratas@</strong> cuando detectes errores en el contenido del manual o laboratorios.
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-toggle" data-target="footer-help-system">
+                        <span>🔄 ACTUALIZACIONES DEL SISTEMA</span>
+                        <span class="footer-arrow">˅</span>
+                    </h4>
+                    <p>Última verificación de enlaces: <span id="lastCheck" style="color: var(--cybersentinel-primary)">2026-01-13</span></p>
+                    <p>Estado del sistema: <span style="color: var(--cybersentinel-secondary)">OPERATIVO</span></p>
+                    <div id="footer-help-system" class="footer-help hidden" style="margin-top:0.5rem; font-size:0.85rem; color:var(--secondary-text);">
+                        Aquí no se actualiza tu ordenador, sino el <strong>estado de la plataforma</strong>:
+                        la fecha indica la última vez que se comprobó que los enlaces del manual y de las herramientas siguen vivos,
+                        y el estado resume si todo está funcionando con normalidad. Si sospechas de un enlace roto,
+                        puedes lanzar una comprobación manual con el botón.
+                    </div>
+                    <button onclick="checkLinks()" class="btn-secondary">FORZAR VERIFICACIÓN</button>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024-2026 CYBERSENTINEL AI ACADEMY // AUTH: JAIRO DAVID PERDOMO GARCÍA</p>
+                <p style="margin-top: 5px; font-style: italic; opacity: 0.7;">"Proteger lo crítico. Enseñar lo esencial."</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SCRIPTS DE INTERACTIVIDAD -->
+    <!-- Dossier Modal Container -->
+    <div id="dossierOverlay" class="dossier-overlay" onclick="closeDossier(event)">
+        <div class="dossier-modal" onclick="event.stopPropagation()">
+            <div class="dossier-header">
+                <h2 id="dossierTitle" class="dossier-title">TITULO DOSSIER</h2>
+                <button class="dossier-close" onclick="closeDossier()">×</button>
+            </div>
+            <div id="dossierContent" class="dossier-content">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- MISSION LOG LOGIC ---
+        const missions = [
+            { id: '00', title: '00: Panorama', threat: 'ESTRATÉGICO', hasLab: false, hasReport: false },
+            { id: '01', title: '01: Lab Ético', threat: 'TÁCTICO', hasLab: true, hasReport: true },
+            { id: '02', title: '02: Fundamentos', threat: 'TÁCTICO', hasLab: true, hasReport: true },
+            { id: '03', title: '03: IA/ML', threat: 'TÁCTICO', hasLab: true, hasReport: true },
+            { id: '04', title: '04: Modelado', threat: 'OPERATIVO', hasLab: true, hasReport: true },
+            { id: '05', title: '05: Riesgos', threat: 'OPERATIVO', hasLab: true, hasReport: true },
+            { id: '06', title: '06: PASTA', threat: 'OPERATIVO', hasLab: true, hasReport: true },
+            { id: '07', title: '07: Arq. Red', threat: 'OPERATIVO', hasLab: true, hasReport: true },
+            { id: '08', title: '08: IDS/IPS', threat: 'OPERATIVO', hasLab: true, hasReport: true },
+            { id: '10', title: '10: ML/Anomalías', threat: 'AVANZADO', hasLab: true, hasReport: true },
+            { id: '11', title: '11: Threat Hunting', threat: 'AVANZADO', hasLab: true, hasReport: true },
+            { id: '12', title: '12: Visión Computacional', threat: 'AVANZADO', hasLab: true, hasReport: true },
+            { id: '14', title: '14: Scripting Python', threat: 'AVANZADO', hasLab: true, hasReport: true },
+            { id: '15', title: '15: SOAR', threat: 'AUTOMATIZADO', hasLab: true, hasReport: true },
+            { id: '16', title: '16: GRC y Ética', threat: 'ESTRATÉGICO', hasLab: true, hasReport: true },
+            { id: 'sim_dome', title: '⚠️ SIMULACIÓN: CRITICAL DOME', threat: 'EXISTENCIAL', hasLab: true, hasReport: false }
+        ];
+        
+        const defaultMissionState = {
+            '00': { status: 'completed', lab: 'na', report: 'na' },
+            '01': { status: 'pending', lab: 'pending', report: 'pending' },
+            '02': { status: 'pending', lab: 'pending', report: 'pending' },
+            '03': { status: 'pending', lab: 'pending', report: 'pending' },
+            '04': { status: 'pending', lab: 'pending', report: 'pending' },
+            '05': { status: 'pending', lab: 'pending', report: 'pending' },
+            '06': { status: 'pending', lab: 'pending', report: 'pending' },
+            '07': { status: 'pending', lab: 'pending', report: 'pending' },
+            '08': { status: 'pending', lab: 'pending', report: 'pending' },
+            '10': { status: 'pending', lab: 'pending', report: 'pending' },
+            '11': { status: 'pending', lab: 'pending', report: 'pending' },
+            '12': { status: 'pending', lab: 'pending', report: 'pending' },
+            '14': { status: 'pending', lab: 'pending', report: 'pending' },
+            '15': { status: 'pending', lab: 'pending', report: 'pending' },
+            '16': { status: 'pending', lab: 'pending', report: 'pending' },
+            'sim_dome': { status: 'pending', lab: 'pending', report: 'na' }
+        };
+
+        function initMissionLog() {
+            const tbody = document.querySelector('#missionTable tbody');
+            if (!tbody) return;
+            
+            const savedData = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+            
+            missions.forEach(mission => {
+                const row = document.createElement('tr');
+                const data = savedData[mission.id] || { status: 'pending', lab: 'pending', report: 'pending' };
+                
+                // Title
+                row.innerHTML = `<td><strong>${mission.title}</strong></td>`;
+                
+                // Threat Level Badge
+                let badgeColor = '#10b981'; // Default Green
+                let badgeBg = 'rgba(16, 185, 129, 0.1)';
+                
+                if (mission.threat === 'OPERATIVO') { badgeColor = '#3b82f6'; badgeBg = 'rgba(59, 130, 246, 0.1)'; } // Blue
+                if (mission.threat === 'AVANZADO') { badgeColor = '#f59e0b'; badgeBg = 'rgba(245, 158, 11, 0.1)'; } // Orange
+                if (mission.threat === 'EXISTENCIAL') { badgeColor = '#ef4444'; badgeBg = 'rgba(239, 68, 68, 0.2)'; } // Red
+                if (mission.threat === 'AUTOMATIZADO') { badgeColor = '#a855f7'; badgeBg = 'rgba(168, 85, 247, 0.1)'; } // Purple
+                
+                const threatStyle = `
+                    display: inline-block;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 0.75rem;
+                    font-weight: bold;
+                    color: ${badgeColor};
+                    background: ${badgeBg};
+                    border: 1px solid ${badgeColor};
+                    box-shadow: 0 0 5px ${badgeBg};
+                    text-transform: uppercase;
+                    ${mission.threat === 'EXISTENCIAL' ? 'animation: blink 2s infinite;' : ''}
+                `;
+                
+                row.innerHTML += `<td><span style="${threatStyle}">${mission.threat}</span></td>`;
+                
+                // Status Select
+                row.appendChild(createSelectCell(mission.id, 'status', data.status, [
+                    {val: 'pending', text: '🔴 NO INICIADO'},
+                    {val: 'in_progress', text: '🟡 EN PROGRESO'},
+                    {val: 'completed', text: '🟢 COMPLETADO'}
+                ]));
+
+                // Lab Select
+                if (mission.hasLab) {
+                    row.appendChild(createSelectCell(mission.id, 'lab', data.lab, [
+                        {val: 'pending', text: '🔴 NO INICIADO'},
+                        {val: 'in_progress', text: '🟡 EN PROGRESO'},
+                        {val: 'approved', text: '🟢 APROBADO'}
+                    ]));
+                } else {
+                    row.innerHTML += `<td><span style="color:var(--secondary-text)">--</span></td>`;
+                }
+
+                // Report Select
+                if (mission.hasReport) {
+                    row.appendChild(createSelectCell(mission.id, 'report', data.report, [
+                        {val: 'pending', text: '⏳ PENDIENTE'},
+                        {val: 'submitted', text: '📄 ENTREGADO'}
+                    ]));
+                } else {
+                    row.innerHTML += `<td><span style="color:var(--secondary-text)">--</span></td>`;
+                }
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function createSelectCell(id, type, currentValue, options) {
+            const td = document.createElement('td');
+            const select = document.createElement('select');
+            select.className = 'mission-select';
+            select.dataset.id = id;
+            select.dataset.type = type;
+            select.dataset.status = currentValue; 
+            
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.val;
+                option.textContent = opt.text;
+                if (opt.val === currentValue) option.selected = true;
+                select.appendChild(option);
+            });
+
+            select.addEventListener('change', (e) => {
+                const newVal = e.target.value;
+                e.target.dataset.status = newVal;
+                saveMissionLog(id, type, newVal);
+            });
+
+            td.appendChild(select);
+            return td;
+        }
+
+        function saveMissionLog(id, type, value) {
+            const savedData = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+            if (!savedData[id]) savedData[id] = {};
+            savedData[id][type] = value;
+            localStorage.setItem('cs_mission_log', JSON.stringify(savedData));
+            
+            // Refresh UI components live
+            if (typeof initRewardsPanel === 'function') initRewardsPanel();
+            if (typeof initTacticalDashboard === 'function') initTacticalDashboard();
+            if (typeof initPracticePlanner === 'function') initPracticePlanner();
+        }
+
+        // Initialize on Load
+        window.addEventListener('DOMContentLoaded', initMissionLog);
+
+        // 1. Reloj del Sistema
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
+            document.getElementById('utcTime').innerText = '[' + timeString + ']';
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 2. Efecto de escritura automática en el terminal
+        const phrases = [
+            "whoami",
+            "cat /mission.txt",
+            "status --system",
+            "help --resources"
+        ];
+        let currentPhrase = 0;
+        let currentChar = 0;
+        const terminal = document.getElementById('mainTerminal');
+
+        function typeWriter() {
+            if (currentChar < phrases[currentPhrase].length) {
+                terminal.innerHTML = `student@cybersentinel:~$ <span class="command">${phrases[currentPhrase].substring(0, currentChar + 1)}</span><span class="cursor"></span>`;
+                currentChar++;
+                setTimeout(typeWriter, 100);
+            } else {
+                // Comando completado, mostrar output simulado después de una pausa
+                setTimeout(() => {
+                    let output = "";
+                    switch(currentPhrase) {
+                        case 0: output = "Cadete_Operaciones_Especiales"; break;
+                        case 1: output = "\"Proteger lo crítico. Enseñar lo esencial.\""; break;
+                        case 2: output = "ALL SYSTEMS NOMINAL. SECURE CONNECTION ESTABLISHED."; break;
+                        case 3: output = "Available: [Kali_Linux] [VirtualBox] [Win10_Dev] [Manual_Vol1]"; break;
+                    }
+                    
+                    terminal.innerHTML = `student@cybersentinel:~$ <span class="command">${phrases[currentPhrase]}</span><br><span class="output">${output}</span><br>student@cybersentinel:~$ <span class="cursor"></span>`;
+                    
+                    // Esperar antes de borrar y empezar el siguiente
+                    setTimeout(() => {
+                        terminal.innerHTML = `student@cybersentinel:~$ <span class="cursor"></span>`;
+                        currentChar = 0;
+                        currentPhrase = (currentPhrase + 1) % phrases.length;
+                        setTimeout(typeWriter, 1000);
+                    }, 3000);
+                }, 500);
+            }
+        }
+
+        // Iniciar después de 2 segundos
+        setTimeout(typeWriter, 2000);
+
+        // 3. Verificación de Hash Interactiva
+        document.getElementById('verifyHashBtn').addEventListener('click', function() {
+            const userHash = document.getElementById('hashInput').value.trim().toLowerCase();
+            const tool = document.getElementById('toolSelect').value;
+            const resultDiv = document.getElementById('hashResult');
+            
+            resultDiv.style.display = 'block';
+            
+            if (userHash === "") {
+                resultDiv.className = 'hash-result alert-warning';
+                resultDiv.innerHTML = "⚠️ Ingresa un hash SHA256 para verificar.";
+                return;
+            }
+
+            // Enlaces a fuentes oficiales para verificación manual (Zero Trust)
+            let verifyUrl = "#";
+            if (tool.includes("Kali")) verifyUrl = "https://www.kali.org/get-kali/#kali-virtual-machines";
+    if (tool.includes("VirtualBox")) verifyUrl = "https://www.virtualbox.org/wiki/SHA_256_Checksums";
+    if (tool.includes("Win10")) verifyUrl = "https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/";
+
+    // Known hashes for specific versions (CyberSentinel Arsenal)
+    const knownHashes = {
+        "virtualbox": "4719b38e7a276b43099ce4d6349e6bfc80edf644ee59d9dafd264bc7ed7691f4", // VirtualBox 7.0.14 (Reference)
+        "kali": "23742b86cf1ef63b69c8921fea10cc8a09d709c4fb5550bda0cb5fdb915df7c5" // Kali Linux VirtualBox Image (Latest Verified)
+    };
+
+    let validationMessage = "";
+    let alertClass = "alert-info";
+    
+    // Check against known hashes
+    if (tool.includes("VirtualBox") && userHash === knownHashes["virtualbox"]) {
+        validationMessage = "✅ <strong>MATCH CONFIRMADO:</strong> Este hash coincide con VirtualBox 7.0.14 (Win.exe). Archivo original verificado.";
+        alertClass = "alert-success";
+    } else if (tool.includes("Kali") && userHash === knownHashes["kali"]) {
+        validationMessage = "✅ <strong>MATCH CONFIRMADO:</strong> Este hash coincide con la imagen oficial de Kali Linux VirtualBox. Archivo original verificado.";
+        alertClass = "alert-success";
+    } else {
+        validationMessage = `
+            <strong>Modo de Verificación Segura (Zero Trust):</strong><br>
+            1. Visita la fuente oficial: <a href="${verifyUrl}" target="_blank" style="color: #fff; text-decoration: underline;">🔗 Verificar Hash de ${tool}</a><br>
+            2. Busca tu archivo en la lista (Ctrl+F).<br>
+            3. Compara con tu hash:<br>
+            <code style="background:rgba(0,0,0,0.5); padding:2px; display:block; margin-top:5px; word-break:break-all;">${userHash}</code>
+        `;
+        alertClass = "alert-warning";
+    }
+
+    resultDiv.className = `hash-result ${alertClass}`;
+    resultDiv.innerHTML = validationMessage;
+});
+
+        // 4. Footer System Check
+        function checkLinks() {
+            const btn = document.querySelector('.btn-secondary');
+            const originalText = btn.innerText;
+            btn.innerText = "VERIFICANDO...";
+            btn.style.opacity = "0.7";
+            
+            setTimeout(() => {
+                btn.innerText = "VERIFICADO";
+                document.getElementById('lastCheck').innerText = new Date().toISOString().split('T')[0];
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.opacity = "1";
+                }, 2000);
+            }, 1500);
+        }
+        
+        function initFooterHelp() {
+            const toggles = document.querySelectorAll('.footer-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const targetId = toggle.dataset.target;
+                    if (!targetId) return;
+                    const help = document.getElementById(targetId);
+                    if (!help) return;
+                    const arrow = toggle.querySelector('.footer-arrow');
+                    const willShow = help.classList.contains('hidden');
+                    help.classList.toggle('hidden');
+                    if (arrow) {
+                        arrow.textContent = willShow ? '˄' : '˅';
+                    }
+                });
+            });
+        }
+        
+        // 5. TACTICAL DASHBOARD LOGIC (NUEVO)
+        const competencyMap = {
+            // Cap 04
+            'stride': 'STRIDE Framework',
+            'kill_chain': 'Cyber Kill Chain',
+            'dfd': 'Diagramas DFD',
+            'diff_concepts': 'Amenaza vs Riesgo',
+            'apply_pasta': 'Aplicación PASTA',
+            // Cap 05
+            'risk_triage': 'Triage de Riesgo',
+            'dread_calc': 'Cálculo DREAD',
+            'mitigation_strat': 'Estrategias Mitigación',
+            // Cap 06
+            'dual_view': 'Visión Red/Blue',
+            'trust_boundaries': 'Límites de Confianza',
+            'pasta_full': 'Ciclo PASTA Completo',
+            'exec_comm': 'Informe Ejecutivo',
+            // Cap 07
+            'defense_depth': 'Defensa en Profundidad',
+            'network_seg': 'Segmentación de Red',
+            'zero_trust': 'Zero Trust Basics',
+            'api_sec': 'Seguridad API',
+            // Cap 08
+            'ids_ips_diff': 'IDS vs IPS',
+            'snort_rules': 'Reglas Snort',
+            'log_analysis': 'Análisis de Logs',
+            // Cap 10
+            'ai_duality': 'Dualidad IA',
+            'uba_concept': 'UBA / Comportamiento',
+            'soar_basics': 'Fundamentos SOAR',
+            // Cap 11
+            'hunter_mindset': 'Mindset de Caza',
+            'hypothesis_gen': 'Generación Hipótesis',
+            'sysmon_config': 'Configuración Sysmon'
+        };
+
+        const chapterMap = {
+            '04': 'Modelado', '05': 'Riesgos', '06': 'Diagramación',
+            '07': 'Arq. Red', '08': 'IDS/IPS', '09': 'Hardening',
+            '10': 'ML/Anomalías', '11': 'Threat Hunting'
+        };
+
+        function initTacticalDashboard() {
+            const masteredList = document.getElementById('masteryList');
+            const focusList = document.getElementById('focusList');
+            const nextObjTitle = document.getElementById('nextMissionTitle');
+            const nextObjReason = document.getElementById('nextMissionReason');
+
+            let masteredItems = [];
+            let focusItems = [];
+
+            // 1. Analizar Competencias (LocalStorage scan)
+            const chaptersToCheck = ['04', '05', '06', '07', '08', '10', '11'];
+            
+            chaptersToCheck.forEach(chapId => {
+                const data = JSON.parse(localStorage.getItem('cs_tracker_' + chapId) || '{}');
+                for (const [key, val] of Object.entries(data)) {
+                    const score = parseInt(val);
+                    const name = competencyMap[key] || key;
+                    
+                    if (score >= 4) {
+                        masteredItems.push(name);
+                    } else if (score > 0 && score <= 2) { // Solo si ya intentó (score > 0)
+                        focusItems.push({ name: name, chap: chapterMap[chapId] || chapId });
+                    }
+                }
+            });
+
+            // 2. Renderizar Dominio
+            if (masteredItems.length > 0) {
+                masteredList.innerHTML = masteredItems.map(item => 
+                    `<span style="background:rgba(0,255,0,0.1); color:#00ff00; padding:2px 8px; border-radius:4px; font-size:0.8rem; border:1px solid rgba(0,255,0,0.3);">${item}</span>`
+                ).join('');
+            } else {
+                masteredList.innerHTML = '<span style="color: #666; font-size: 0.9rem; font-style: italic;">Completa las autoevaluaciones en el manual...</span>';
+            }
+
+            // 3. Renderizar Foco
+            if (focusItems.length > 0) {
+                focusList.innerHTML = focusItems.map(item => 
+                    `<li style="margin-bottom:5px;">⚠️ <strong>${item.name}</strong> <span style="opacity:0.7; font-size:0.8em;">(Cap ${item.chap})</span></li>`
+                ).join('');
+            } else {
+                if (masteredItems.length > 0) {
+                    focusList.innerHTML = '<li style="color: #00ff00;">✅ ¡Sin debilidades críticas detectadas!</li>';
+                } else {
+                    focusList.innerHTML = '<li style="color: #666;">No hay datos de riesgo aún.</li>';
+                }
+            }
+
+            // 4. Calcular Siguiente Hito (Basado en Log de Misiones)
+            const missionData = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+            let nextMission = null;
+            
+            // Buscar la primera misión que NO esté completada
+            for (const m of missions) {
+                const status = missionData[m.id]?.status || 'pending';
+                if (status !== 'completed') {
+                    nextMission = m;
+                    break;
+                }
+            }
+
+            if (nextMission) {
+                nextObjTitle.innerText = nextMission.title;
+                const status = missionData[nextMission.id]?.status || 'pending';
+                if (status === 'in_progress') {
+                    nextObjReason.innerText = "🚧 Misión en curso. ¡Complétala!";
+                } else {
+                    nextObjReason.innerText = "🔒 Siguiente desafío desbloqueado.";
+                }
+            } else {
+                nextObjTitle.innerText = "¡TODO COMPLETADO!";
+                nextObjReason.innerText = "Eres una leyenda. Espera el Vol. 2.";
+            }
+        }
+
+        function computeAccessLevel(missionData) {
+            let completed = 0;
+            missions.forEach(m => {
+                const status = missionData[m.id]?.status || 'pending';
+                if (status === 'completed') {
+                    completed += 1;
+                }
+            });
+
+            let level = 0;
+            let label = 'Recluta – Sin misiones completadas';
+
+            if (completed >= 3) {
+                level = 1;
+                label = 'Nivel 1 – Operador en Entrenamiento';
+            }
+            if (completed >= 7) {
+                level = 2;
+                label = 'Nivel 2 – Operador Táctico';
+            }
+            if (completed >= 11) {
+                level = 3;
+                label = 'Nivel 3 – Threat Hunter en Formación';
+            }
+
+            return { level, label, completed };
+        }
+
+        function initPracticePlanner() {
+            const practiceList = document.getElementById('practiceList');
+            if (!practiceList) return;
+
+            const missionData = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+            const suggestions = [];
+
+            missions.forEach(m => {
+                const data = missionData[m.id] || {};
+                if (!m.hasLab) return;
+
+                const labStatus = data.lab || 'pending';
+                const reportStatus = data.report || 'pending';
+                const missionStatus = data.status || 'pending';
+
+                if (labStatus === 'in_progress') {
+                    suggestions.push({
+                        prio: 1,
+                        text: `🟡 Completa el laboratorio de <strong>${m.title}</strong> antes de abrir nuevas frentes.`
+                    });
+                } else if (labStatus === 'pending' && missionStatus !== 'completed') {
+                    suggestions.push({
+                        prio: 2,
+                        text: `🔴 Inicia el laboratorio de <strong>${m.title}</strong> para consolidar la teoría en práctica.`
+                    });
+                } else if (labStatus === 'approved' && reportStatus === 'pending') {
+                    suggestions.push({
+                        prio: 3,
+                        text: `📄 Redacta o mejora el informe táctico del laboratorio de <strong>${m.title}</strong>.`
+                    });
+                }
+            });
+
+            suggestions.sort((a, b) => a.prio - b.prio);
+            const top = suggestions.slice(0, 3);
+
+            if (top.length === 0) {
+                practiceList.innerHTML = '<li style="color:#00ff99; font-size:0.9rem;">✅ No hay frentes críticos abiertos. Elige libremente un capítulo o laboratorio para reforzar.</li>';
+            } else {
+                practiceList.innerHTML = top.map(item => `<li style="margin-bottom:5px;">${item.text}</li>`).join('');
+            }
+        }
+
+        function initRewardsPanel() {
+            const accessLabel = document.getElementById('accessLevelLabel');
+            const badgeWall = document.getElementById('badgeWall');
+            const locked = document.getElementById('classifiedLocked');
+            const content = document.getElementById('classifiedContent');
+            const btn = document.getElementById('requestDeclassBtn');
+
+            if (!accessLabel || !locked || !content || !btn) return;
+
+            const missionData = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+            const access = computeAccessLevel(missionData);
+
+            accessLabel.textContent = access.label;
+
+            // Definición Jerárquica de Fases (Estilo Militar)
+            const phases = [
+                { 
+                    id: 'phase1', 
+                    title: 'Fase 1: Recluta', 
+                    icon: '🎖️', 
+                    missions: ['00', '01', '02', '03', '04', '05', '06'],
+                    desc: 'Fundamentos y Entorno'
+                },
+                { 
+                    id: 'phase2', 
+                    title: 'Fase 2: Analista', 
+                    icon: '🛡️', 
+                    missions: ['07', '08', '09', '10', '11', '12'], // Assuming 09, 12 exist or will exist
+                    desc: 'Defensa Táctica'
+                },
+                { 
+                    id: 'phase3', 
+                    title: 'Fase 3: Hunter', 
+                    icon: '🦅', 
+                    missions: ['13', '14', '15', '16', '17', '18'],
+                    desc: 'Inteligencia y Caza'
+                },
+                { 
+                    id: 'phase4', 
+                    title: 'Fase 4: Especialista', 
+                    icon: '🌟', 
+                    missions: ['v2_a', 'v2_b', 'v2_c', 'v2_d'], // Placeholders for Vol 2
+                    desc: 'Maestría Sectorial'
+                }
+            ];
+
+            // Pre-calcular estado de todas las fases para lógica de bloqueo
+            phases.forEach(p => {
+                let c = 0;
+                p.missions.forEach(mid => {
+                    if ((missionData[mid]?.status || 'pending') === 'completed') c++;
+                });
+                p.completedCount = c;
+                p.isFinished = (c === p.missions.length && p.missions.length > 0);
+            });
+
+            if (badgeWall) {
+                badgeWall.innerHTML = phases.map((phase, index) => {
+                    const totalMissions = phase.missions.length;
+                    const completedCount = phase.completedCount;
+                    const isFinished = phase.isFinished;
+                    
+                    // Lógica de bloqueo: Bloqueado si la fase anterior no está terminada
+                    // Excepción: Fase 1 siempre desbloqueada
+                    const prevPhase = index > 0 ? phases[index-1] : null;
+                    const isLocked = (prevPhase && !prevPhase.isFinished);
+                    
+                    const isActive = !isLocked && !isFinished;
+                    
+                    // Estado visual
+                    let cardClass = 'phase-card';
+                    
+                    if (isFinished) {
+                        cardClass += ' completed';
+                    } else if (isActive) {
+                        cardClass += ' active';
+                    } else if (isLocked) {
+                        cardClass += ' locked';
+                    }
+
+                    // Generar medallas específicas por misión (Visualización directa)
+                    const subBadgesHTML = phase.missions.map(mid => {
+                        const status = missionData[mid]?.status || 'pending';
+                        const isDone = (status === 'completed');
+                        // Formato corto para la etiqueta: M00, M01...
+                        const label = mid.length <= 3 ? 'M'+mid : '🔍'; 
+                        
+                        let badgeClass = 'sub-badge';
+                        let title = `Misión ${mid}`;
+                        
+                        if (isDone) {
+                            badgeClass += ' earned';
+                            title += ' (COMPLETADA)';
+                        } else {
+                            badgeClass += ' pending';
+                            title += ' (PENDIENTE)';
+                        }
+                        
+                        return `<span class="${badgeClass}" title="${title}">${label}</span>`;
+                    }).join('');
+
+                    const mainIcon = isLocked ? '🔒' : phase.icon;
+
+                    return `
+                        <div class="${cardClass}">
+                            <div class="phase-header">${phase.title}</div>
+                            <div class="phase-insignia-main">${mainIcon}</div>
+                            <div class="phase-sub-badges">
+                                ${subBadgesHTML}
+                            </div>
+                            <div class="phase-progress">
+                                [${completedCount}/${totalMissions} completadas]
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (access.level >= 1) {
+                locked.style.display = 'none';
+                content.style.display = 'block';
+            } else {
+                locked.style.display = 'block';
+                content.style.display = 'none';
+            }
+
+            if (!btn.dataset.bound) {
+                btn.dataset.bound = 'true';
+                btn.addEventListener('click', () => {
+                    const data = JSON.parse(localStorage.getItem('cs_mission_log') || 'null') || defaultMissionState;
+                    const acc = computeAccessLevel(data);
+                    if (acc.level >= 1) {
+                        locked.style.display = 'none';
+                        content.style.display = 'block';
+                    } else {
+                        alert('Aún no tienes Nivel de Acceso 1. Completa al menos 3 misiones para solicitar desclasificación.');
+                    }
+                });
+            }
+        }
+
+        function initGRCAuditPanel() {
+            const input = document.getElementById('grcAuditInput');
+            const btn = document.getElementById('grcAuditLoadBtn');
+            const err = document.getElementById('grcAuditError');
+            const scoreEl = document.getElementById('grcScore');
+            const aleEl = document.getElementById('grcAle');
+            const roiEl = document.getElementById('grcRoi');
+            const downEl = document.getElementById('grcDowntime');
+
+            if (!input || !btn || !err || !scoreEl || !aleEl || !roiEl || !downEl) return;
+
+            function renderFromData(data) {
+                const score = data && typeof data.score === 'number' ? data.score : null;
+                const risk = data && data.risk_model ? data.risk_model : {};
+                const baseAle = typeof risk.ALE === 'number' ? risk.ALE : null;
+                const ransomware = risk.ransomware || {};
+                const roi = typeof ransomware.ROI_automation === 'number' ? ransomware.ROI_automation : null;
+                const downtime = typeof ransomware.downtime_hours === 'number' ? ransomware.downtime_hours : null;
+
+                scoreEl.textContent = score !== null ? `${score}/100` : '–/100';
+
+                if (baseAle !== null) {
+                    if (baseAle >= 1000) {
+                        aleEl.textContent = `≈ ${baseAle.toFixed(0)}`;
+                    } else {
+                        aleEl.textContent = baseAle.toFixed(2);
+                    }
+                } else {
+                    aleEl.textContent = '–';
+                }
+
+                if (roi !== null) {
+                    const roiPct = roi * 100;
+                    roiEl.textContent = `${roiPct.toFixed(1)}%`;
+                    roiEl.style.color = roiPct >= 0 ? '#00ff99' : '#ff6666';
+                } else {
+                    roiEl.textContent = '–';
+                    roiEl.style.color = '#ff6666';
+                }
+
+                if (downtime !== null) {
+                    downEl.textContent = `${downtime} h`;
+                } else {
+                    downEl.textContent = '–';
+                }
+            }
+
+            function loadFromStorage() {
+                const raw = localStorage.getItem('cs_grc_audit');
+                if (!raw) return;
+                try {
+                    const data = JSON.parse(raw);
+                    renderFromData(data);
+                    input.value = JSON.stringify(data, null, 2);
+                    err.style.display = 'none';
+                } catch (e) {
+                    err.textContent = 'No se pudo leer cs_grc_audit desde localStorage.';
+                    err.style.display = 'block';
+                }
+            }
+
+            btn.addEventListener('click', () => {
+                const raw = input.value.trim();
+                if (!raw) {
+                    err.textContent = 'Pega primero el contenido de compliance_report.json.';
+                    err.style.display = 'block';
+                    return;
+                }
+                try {
+                    const data = JSON.parse(raw);
+                    renderFromData(data);
+                    localStorage.setItem('cs_grc_audit', JSON.stringify(data));
+                    err.style.display = 'none';
+                } catch (e) {
+                    err.textContent = 'JSON no válido. Verifica que hayas pegado el archivo completo.';
+                    err.style.display = 'block';
+                }
+            });
+
+            loadFromStorage();
+        }
+
+        function initCardToggles() {
+            const toggles = document.querySelectorAll('.card-toggle');
+            toggles.forEach(toggle => {
+                const targetId = toggle.dataset.target;
+                const body = document.getElementById(targetId);
+                const arrow = toggle.querySelector('.card-toggle-arrow');
+                if (!targetId || !body) return;
+                toggle.style.cursor = 'pointer';
+                toggle.addEventListener('click', () => {
+                    const willShow = body.classList.contains('hidden');
+                    body.classList.toggle('hidden');
+                    if (arrow) {
+                        arrow.textContent = willShow ? '˄' : '˅';
+                    }
+                });
+            });
+        }
+
+        function initNavTabs() {
+            const links = document.querySelectorAll('.header-nav .nav-link');
+            const commandView = document.getElementById('view-command-center');
+            const labsView = document.getElementById('view-labs');
+
+            if (!links || !links.length || !commandView || !labsView) return;
+
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const text = (link.textContent || '').trim();
+
+                    if (text.includes('COMMAND_CENTER')) {
+                        e.preventDefault();
+                        commandView.classList.remove('hidden');
+                        labsView.classList.add('hidden');
+                        links.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    } else if (text.includes('LABS_PRÁCTICOS')) {
+                        e.preventDefault();
+                        commandView.classList.add('hidden');
+                        labsView.classList.remove('hidden');
+                        links.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        initTacticalDashboard();
+        initPracticePlanner();
+        initRewardsPanel();
+        initGRCAuditPanel();
+        initFooterHelp();
+        initCardToggles();
+        initNavTabs();
+
+        const originalSave = saveMissionLog;
+        saveMissionLog = function(id, type, value) {
+            originalSave(id, type, value);
+            initTacticalDashboard();
+            initPracticePlanner();
+            initRewardsPanel();
+            initGRCAuditPanel();
+        };
+        const dossiers = {
+            kinetic: {
+                title: 'KINETIC DEFENDER',
+                color: '#ff3366',
+                content: `
+                    <div class="dossier-section">
+                        <h3>:: Misión Operativa</h3>
+                        <p>Proteger el mundo físico de amenazas digitales. Tu campo de batalla son las infraestructuras críticas donde un ciberataque tiene consecuencias cinéticas.</p>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Arsenal Asignado (Dashboards)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>Global War Room (Puerto 3008):</strong> Gestión de crisis masivas y supervivencia (Survival Engine).</li>
+                            <li><strong>Specialized Dome (Puerto 3007):</strong> Monitorización de transporte aéreo y defensa perimetral.</li>
+                            <li><strong>Strategic Hub (Puerto 3000):</strong> Módulo "Infraestructura" (Red Eléctrica).</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Operaciones Clave (Simulaciones)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>Reactor Nuclear:</strong> Gestión de crisis de fusión del núcleo y sistemas de enfriamiento.</li>
+                            <li><strong>Red Eléctrica Nacional:</strong> Prevención y recuperación de Blackout masivo.</li>
+                            <li><strong>Planta de Aguas:</strong> Defensa contra alteración química de suministros potables.</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Temario Especializado (Volumen 2)</h3>
+                        <ul class="dossier-list">
+                            <li>Protocolos Industriales: Modbus TCP, DNP3, IEC 61850.</li>
+                            <li>Seguridad en PLCs (Siemens, Rockwell) y HMI.</li>
+                            <li>Safety vs Security: Sistemas instrumentados de seguridad (SIS).</li>
+                        </ul>
+                    </div>
+                `
+            },
+            digital: {
+                title: 'DIGITAL STRATEGIST',
+                color: '#00ffff',
+                content: `
+                    <div class="dossier-section">
+                        <h3>:: Misión Operativa</h3>
+                        <p>Blindar la economía digital y la infraestructura en la nube. Operas en el etéreo mundo de las transacciones de alta velocidad y la manipulación social.</p>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Arsenal Asignado (Dashboards)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>Strategic Hub (Puerto 3000):</strong> Módulo "Social Media Analytics" (Detección de Desinformación).</li>
+                            <li><strong>Strategic Hub (Puerto 3000):</strong> Módulo "Supply Chain" (Riesgo de Proveedores).</li>
+                            <li><strong>Terminal Táctica:</strong> Análisis forense de logs financieros y tráfico web.</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Operaciones Clave (Simulaciones)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>Neo-Banco Digital:</strong> Defensa activa del Core Bancario ante fraudes masivos.</li>
+                            <li><strong>Exchange Cripto:</strong> Protección de Hot Wallets y rastreo de lavado de activos.</li>
+                            <li><strong>Cloud Warfare:</strong> Mitigación de ataques DDoS y secuestro de infraestructura SaaS.</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Temario Especializado (Volumen 2)</h3>
+                        <ul class="dossier-list">
+                            <li>Arquitectura Cloud Segura (AWS/Azure/GCP).</li>
+                            <li>DevSecOps Pipelines & Container Security (Docker/K8s).</li>
+                            <li>Detección de Fraude Transaccional y Lavado de Activos.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            bio: {
+                title: 'BIO-PROTECTOR',
+                color: '#00ff99',
+                content: `
+                    <div class="dossier-section">
+                        <h3>:: Misión Operativa</h3>
+                        <p>Asegurar la vida humana y la privacidad biológica. La última frontera de la ciberseguridad: cuando el cuerpo humano es la superficie de ataque.</p>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Arsenal Asignado (Dashboards)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>Strategic Hub (Puerto 3000):</strong> Módulo "Bio-Security Chain" (Cadena de Frío/Vacunas).</li>
+                            <li><strong>Specialized Dome (Puerto 3007):</strong> Monitorización de parámetros vitales en masa (Simulación).</li>
+                            <li><strong>Entorno Aislado:</strong> Sandbox para análisis de malware en dispositivos médicos.</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Operaciones Clave (Simulaciones)</h3>
+                        <ul class="dossier-list">
+                            <li><strong>UCI Hospitalaria:</strong> Protección de sistemas de soporte vital y bombas de infusión.</li>
+                            <li><strong>Laboratorio Nivel 4:</strong> Contención de fugas de datos de patógenos críticos.</li>
+                            <li><strong>Implantes Neurales:</strong> Prevención de 'Bio-Hacking' y manipulación de señales.</li>
+                        </ul>
+                    </div>
+                    <div class="dossier-section">
+                        <h3>:: Temario Especializado (Volumen 2)</h3>
+                        <ul class="dossier-list">
+                            <li>Seguridad en Internet of Medical Things (IoMT).</li>
+                            <li>Privacidad de Datos Genéticos y Biomédicos (HIPAA/GDPR).</li>
+                            <li>Hacking Ético de Dispositivos Implantables (Marcapasos).</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        function showDossier(type) {
+            const data = dossiers[type];
+            if(!data) return;
+
+            document.getElementById('dossierTitle').innerText = data.title;
+            document.getElementById('dossierTitle').style.color = data.color;
+            document.querySelector('.dossier-modal').style.borderColor = data.color;
+            document.getElementById('dossierContent').innerHTML = data.content;
+            
+            document.getElementById('dossierOverlay').style.display = 'flex';
+        }
+
+        function closeDossier(e) {
+            if (e && e.target !== e.currentTarget && e.target.tagName !== 'BUTTON') return; 
+            document.getElementById('dossierOverlay').style.display = 'none';
+        }
+
+        function selectSpecialization(type, element) {
+            // Guardar en localStorage
+            localStorage.setItem('cybersentinel_specialization', type);
+            
+            // Actualizar UI
+            document.querySelectorAll('.specialization-card').forEach(card => {
+                card.style.opacity = '0.3';
+                card.style.borderColor = '#333';
+                card.querySelector('button').innerText = 'BLOQUEADO';
+                card.querySelector('button').disabled = true;
+            });
+            
+            element.style.opacity = '1';
+            let color = '';
+            let title = '';
+            
+            if(type === 'kinetic') {
+                color = '#ff3366';
+                title = 'KINETIC DEFENDER';
+            } else if(type === 'digital') {
+                color = '#00ffff';
+                title = 'DIGITAL STRATEGIST';
+            } else if(type === 'bio') {
+                color = '#00ff99';
+                title = 'BIO-PROTECTOR';
+            }
+            
+            element.style.borderColor = color;
+            element.style.boxShadow = `0 0 15px ${color}40`;
+            const btn = element.querySelector('button');
+            btn.innerText = 'ASIGNADO';
+            btn.style.background = color;
+            btn.style.color = '#000';
+            btn.style.borderColor = color;
+            
+            // Mensaje de estado
+            const statusMsg = document.getElementById('specialization-status');
+            statusMsg.innerHTML = `<strong style="color: ${color}">¡ACCESO CONCEDIDO!</strong> Protocolo de especialización activado. <br> Preparando recursos para el perfil <strong>${title}</strong>...`;
+            
+            // Efecto de sonido (simulado visualmente)
+            element.style.transform = "scale(1.05)";
+            setTimeout(() => {
+                element.style.transform = "scale(1)";
+                alert(`[SISTEMA]: Perfil ${title} registrado correctamente.\n\nBienvenido al nivel de Especialista. Prepara tu portafolio.`);
+            }, 300);
+        }
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', () => {
+            const savedSpec = localStorage.getItem('cybersentinel_specialization');
+            if(savedSpec) {
+                const card = document.querySelector(`.specialization-card[data-type="${savedSpec}"]`);
+                if(card) {
+                    selectSpecialization(savedSpec, card);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
